@@ -1,0 +1,206 @@
+---
+title: "PShaji_Assign1.Rmd"
+author: "Priya Shaji"
+date: "8/29/2019"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Problem set 1
+
+
+You can think of vectors representing many dimensions of related information. For instance, Netflix might store all the ratings a user gives to movies in a vector. This is clearly a vector of very large dimensions (in the millions) and very sparse as the user might have rated only a few movies. Similarly, Amazon might store the items purchased by a user in a vector, with each slot or dimension representing a unique product and the value of the slot, the number of such items the user bought. One task that is frequently done in these settings is to find similarities between users. And, we can use dot-product between vectors to do just that. As you know, the dot-product is proportional to the length of two vectors and to the angle between them. In fact, the dot-product between two vectors, normalized by their lengths is called as the cosine distance and is frequently used in recommendation engines.
+
+(1) Calculate the dot product u.v where u = [0.5; 0.5] and v = [3; −4]
+
+Answer 1)
+
+```{r}
+u=c(0.5,0.5)
+v=c(3,-4)
+
+
+# By mathematical equation
+
+## Creating function dot_prod to calculate dot products of vectors u and v
+
+dot_prod = function(U,V){
+  a= (u[1]*v[1])+(u[1]*v[2])
+  return (a)
+  
+}
+
+## Invoking function dot_prod
+
+dot_prod(u,v)
+
+# By computation
+crossprod(u,v)
+```
+
+(2) What are the lengths of u and v? Please note that the mathematical notion of the
+length of a vector is not the same as a computer science definition.
+
+Answer 2)
+
+```{r}
+# By mathematical equation
+
+u=c(0.5,0.5)
+v=c(3,-4)
+
+## Creating function vector_length to calculate length of vectors u and v
+
+vector_length = function(U,V){
+  length_u= sqrt(u[1]**2+u[2]**2)
+  length_v= sqrt(v[1]**2+v[2]**2)
+  return (length_u)
+  return (length_v)
+}
+
+## Invoking function vector_length()
+
+vector_length(u,v)
+
+```
+
+
+(3) What is the linear combination: 3u − 2v?
+
+Answer 3)
+
+```{r}
+# By mathematical equation
+
+## Creating function  linear_combination to calculate 3u − 2v
+
+linear_combination = function(U,V,a,b){
+  
+  return((a*U) - (b*V))
+}
+
+## Invoking function linear_combination()
+
+linear_combination(u,v,3,2)
+
+```
+
+
+(4) What is the angle between u and v
+
+Answer 4)
+
+```{r}
+u=c(0.5,0.5)
+v=c(3,-4)
+
+# By mathematical equation
+
+## Creating a function to calculate angle between vectors u and v
+
+angle= function(U,V){
+  
+  a= (u[1]*v[1])+(u[1]*v[2])
+  
+  
+  length_u= sqrt(u[1]**2+u[2]**2)
+  
+  length_v= sqrt(v[1]**2+v[2]**2)
+  
+  return(acos((a)/((length_u)*(length_v)))*180/3.1416)
+}
+
+## Invoking the function angle()
+
+angle(u,v)  
+
+```
+
+
+## Problem set 2
+
+Set up a system of equations with 3 variables and 3 constraints and solve for x. Please write a function in R that will take two variables (matrix A & constraint vector b) and solve using elimination. Your function should produce the right answer for the system of equations for any 3-variable, 3-equation system. You don’t have to worry about degenerate cases and can safely assume that the function will only be tested with a system of equations that has a solution. Please note that you do have to worry about zero pivots, though. Please note that you should not use the built-in function solve to solve this system or use matrix inverses. The approach that you should employ is to construct an Upper Triangular Matrix and then back-substitute to get the solution. Alternatively, you can augment the matrix A with vector b and jointly apply the Gauss Jordan elimination procedure.
+
+Answer)
+
+Elimination method
+
+```{r}
+
+  ## Append matrix A and vector b
+
+equations <- function(A, b){
+  ab <- cbind(A, b)
+  
+ ## Computing matrix A and reducing it to upper triangular matrix or system of equations.
+  
+values <- (A[,1]/(-1*A[1,1]))
+  matrix_multiply <- matrix(c(1, values[2], values[3], 0, 1, 0, 0, 0, 1), nrow=3, ncol=3)  
+  matrix_transformation <- matrix_multiply %*% ab
+  
+  matrix2_values <- -1*(matrix_transformation[3,2]/matrix_transformation[2,2])
+  matrix2_multiply <- matrix(c(1, 0, 0, 0, 1, matrix2_values, 0, 0, 1), nrow=3, ncol=3) 
+  uppertriangle_matrix <- matrix2_multiply %*% matrix_transformation
+  
+  ## Back substitution: solving the upper triangle system.
+  
+  z = uppertriangle_matrix[3,4]/uppertriangle_matrix[3,3]
+  y = (uppertriangle_matrix[2,4]-(uppertriangle_matrix[2,3]*z))/uppertriangle_matrix[2,2]
+  x = (uppertriangle_matrix[1,4]-(uppertriangle_matrix[1,3]*z)-(uppertriangle_matrix[1,2]*y))/uppertriangle_matrix[1,1]
+    
+  result <- rbind(x, y, z)
+  
+  return (result)
+}
+  
+```
+
+
+3) Testing the system
+
+
+```{r}
+test_matrix <- matrix(
+    c(1, 2, -1, 1, -1, -2, 3, 5, 4), 
+    nrow=3, 
+    ncol=3)
+
+```
+
+
+2) Giving the required constraint values for the given
+test matrix
+
+```{r}
+test_constraint <- matrix(
+    c(1, 2, 6), 
+    nrow=3, 
+    ncol=1) 
+
+```
+
+
+3) Invoking the equations function
+
+```{r}
+equations(test_matrix, test_constraint)
+```
+
+
+Therefore, we achieve the required results.
+
+x = -1.55
+y= -0.32
+z = 0.95
+
+
+
+
+
+
+
+
+
