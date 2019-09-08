@@ -1,0 +1,201 @@
+---
+title: "PShaji_Assignment2"
+author: "Priya Shaji"
+date: "9/4/2019"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Problem set 1
+
+(1) Show that $A^TA$ not equal to  $AA^T$ in general. (Proof and demonstration.)
+
+Answer 1)
+
+<strong> Demonstration </strong>
+
+Let $A =$
+
+\[
+\begin{bmatrix}
+a & b\\
+c & d
+\end{bmatrix}
+\]
+
+And, $A^T =$
+
+\[
+\begin{bmatrix}
+e & f\\
+g & h
+\end{bmatrix}
+\]
+
+
+Therefore,
+
+$A^TA =$
+
+
+\[
+\begin{bmatrix}
+ea+fc & eb+fd \\
+ga+hc & gb+hd
+\end{bmatrix}
+\]
+
+Now, as we can see that the products of the $A$ and $A^t$ is not equal to each other.
+
+<strong>Testing</strong>
+
+```{r}
+A <- matrix(c(10,11,12,13),ncol = 2)
+t<- 2
+ATA <- A^t %*% A
+AAT <- A %*% A^t
+
+identical(ATA, AAT)
+```
+
+Hence, using R function 'identical()' , it is proved that product of transpose of a matrix(AT) with the original matrix(A) i.e. $A^TA$,is not equal to the product of original matrix(A) with its transpose(AT), i.e. $AA^T$
+
+
+
+(2) For a special type of square matrix A, we get $A^T A = AA^T$ . Under what conditions could this be true? (Hint: The Identity matrix I is an example of such a matrix).
+
+Answer 2)
+
+For a special type of square matrix A, we get $A^T A = AA^T$. 
+
+The above statement is true provided the given matrices are symmetrical.
+
+Let us see the demonstration in R:
+
+1) Matrix $A$
+
+```{r}
+A <- matrix(c(1, 2, 1, 2, 1, 2, 1, 2, 1), nrow = 3, byrow = T)
+A
+```
+
+
+2) Transpose of Matrix A: $A^T$
+
+
+```{r}
+t(A)
+```
+
+
+3) Test $A^TA = AA^T$
+
+```{r}
+ATA <- t(A) %*% A
+AAT <- A %*% t(A)
+
+AAT == ATA
+```
+
+
+Hence verified, the conditions required for a special type of square matrix A, we get $A^T A = AA^T$, is that the Matrix should be Symmetrical.
+
+
+## Problem set 2
+
+Write an R function to factorize a square matrix A into LU or LDU, whichever you prefer.
+
+Answer)
+
+1) Let's generate a sequence of random numbers using `set.seed`
+
+2) set the size of matrix as n^2 , where n is number of elements in a row or column
+
+```{r}
+set.seed(605)
+n <- 4
+A <- matrix(sample.int(8,size = n^2, replace = TRUE), ncol = n)
+A
+```
+
+3) Create a funcntion LU_matrix
+
+4) for the L matrix , we will set the diagonal elements as 1.
+
+5) Now we will perform row operations in `L` and `U` matrix and iterate through the matrix via `for()` loop
+
+```{r}
+LU_matrix <- function(A){
+  
+  U = A 
+  L = diag(x = 1, ncol = ncol(A), nrow = nrow(A))
+  
+  for (i in 1:(nrow(U) -1)) {
+    for (j in (i+1):nrow(U)){
+      if (U[i, i] != 0){
+        multiplier = U[j, i] / U[i, i]
+        L[j, i] = multiplier
+        U[j, ] = U[j, ] - multiplier * U[i, ]
+      }
+      
+    }
+    
+  }
+  return(list('L' = L, 'U' = U))
+  
+}
+
+x <- LU_matrix(A)
+
+## Print L matrix
+x$L
+```
+
+
+
+```{r}
+## Print U matrix
+
+x$U
+```
+
+6) Perform matrix multiplication 
+
+```{r}
+x$L %*% x$U
+```
+
+
+As we can see that the above matrix is A matrix, therefore our L and U matrices produces verified results.
+
+
+Now let us test our `LU_matrix()` function
+
+```{r}
+matrix_test <- matrix(c(1:9), ncol = 3)
+test <- LU_matrix(matrix_test)
+## Print matrix L
+test$L
+```
+
+
+```{r}
+## Print matrix U
+test$U
+```
+
+Perform matrix multiplication to verify the result
+
+```{r}
+all.equal(test$L %*% test$U, matrix_test)
+```
+
+
+Therefore, product of matrix L and matrix U is equal to matrix `matrix_test`, which verifies the result.
+
