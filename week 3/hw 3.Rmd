@@ -1,0 +1,284 @@
+---
+title: "Hw 3"
+author: "Priya Shaji"
+date: "9/8/2019"
+output:
+  html_document: default
+  pdf_document:
+    extra_dependencies:
+      amsmath: null
+      inputenc: utf8
+subtitle: Chapter E,Page 389, Question C26
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+<strong>Question c26)</strong>
+
+For matrix A,
+
+\[
+A = \begin{bmatrix}
+2 & 1 & 1\\
+1 & 2 & 1\\
+1 & 1 & 2
+\end{bmatrix}
+\]
+
+the characteristic polynomial of A is pA (x) = (4 −x)(1 − x)2. Find the eigenvalues and corresponding eigenspaces of A.
+
+<strong>Answer C26)</strong>
+
+As per definition, $(λI-A)V=0$, where V is a non-zero vector if matrix A has a non-trivial null space, and only non-trival matrices have non-trivial null space or only matrices having determinant `0` has non-trivial null space. 
+
+Therefore, by equating the characteristic polynomial of A is pA (x) = (4 −x)(1 − x)2 to `0`, we get,
+
+$pA (x) = (4 −x)(1 − x)2 = 0$
+
+therefore, eigen values are: $pA (x) = 4,1$ 
+
+Or,
+
+$pA (λ) = 4,1$
+
+Now, let's solve for eigen vectors of A:
+
+$(λI-A)V=0$
+
+$λI =$
+
+
+\[
+\begin{bmatrix}
+λ & 0 & 0\\
+0 & λ & 0\\
+0 & 0 & λ
+\end{bmatrix}
+\]
+
+
+
+$λI-A =$
+
+\[
+\begin{bmatrix}
+λ-2 & -1 & -1\\
+-1 & λ-2 & -1\\
+-1 & -1 & λ-2
+\end{bmatrix}
+\]
+
+
+<strong>Now , λ = 4</strong>
+
+\[
+B= \begin{bmatrix}
+2 & -1  & -1\\
+-1 & 2 & -1\\
+-1 & -1 & 2
+\end{bmatrix}
+V = 0\] 
+
+Eigen vector for eigen value 4, is null space for the above given matrix.
+Values for V, which will satisfy the matrix make up eigen vectors of eigen space whose $λ = 4$
+
+Reducing the matrix B to row echelon form:
+
+\[
+= \begin{bmatrix}
+2 & -1  & -1\\
+-1 & 2 & -1\\
+-1 & -1 & 2
+\end{bmatrix}
+, R2^* -> 2R2+R1\\
+ R2^{**} -> \frac{R2^*}{R3}
+\] 
+ 
+
+\[
+= \begin{bmatrix}
+2 & -1  & -1\\
+0 & 1 & -1\\
+0 & 0 & 0
+\end{bmatrix}
+\begin{bmatrix}
+V1\\
+V2\\
+V3
+\end{bmatrix}=0
+\]
+
+Solving the matrix:
+
+$2V1-V2-V3=0$
+
+$V2-V3=0$
+
+$V2=V3=a$
+
+$2V1-2a=0$
+
+$2V1=2a$
+
+$V1=a$
+
+Therefore, for eigenvalue λ = 4, eigenspace is:
+
+$pA(4) = $
+
+\[
+=
+\begin{bmatrix}
+V1\\
+V2\\
+V3
+\end{bmatrix}\\
+= a \begin{bmatrix} 
+1\\
+1\\
+1
+\end{bmatrix}
+\]
+
+
+
+
+<strong>Now , λ = 1</strong>
+
+$(λI-A)V=0$
+
+$λI =$
+
+
+\[
+\begin{bmatrix}
+λ & 0 & 0\\
+0 & λ & 0\\
+0 & 0 & λ
+\end{bmatrix}
+\]
+
+
+
+$λI-A =$
+
+
+\[
+B= \begin{bmatrix}
+-1 & -1  & -1\\
+-1 & -1 & -1\\
+-1 & -1 & -1
+\end{bmatrix}
+V = 0\] 
+
+Eigen vector for eigen value 1, is null space for the above given matrix.
+Values for V, which will satisfy the matrix make up eigen vectors of eigen space whose $λ = 1$
+
+Reducing the matrix B to row echelon form:
+
+\[
+= \begin{bmatrix}
+-1 & -1  & -1\\
+-1 & - & -1\\
+-1 & -1 & -1
+\end{bmatrix}
+, R2^* -> R2-R1\\
+R3^{*} -> R3-R1\\
+R1^*-> \frac{R1}{-1}
+\] 
+ 
+
+\[
+= \begin{bmatrix}
+1 & 1  & 1\\
+0 & 0 & 0\\
+0 & 0 & 0
+\end{bmatrix}
+\begin{bmatrix}
+V1\\
+V2\\
+V3
+\end{bmatrix}=0
+\]
+
+Solving the matrix:
+
+$V1+V2+V3=0$
+
+$V1=-V2-V3$
+
+$Let, V2=a$
+
+$and,V2=b$
+
+Therefore,
+
+$V1=-a-b$
+Therefore, for eigenvalue λ = 1, eigenspace is:
+
+$pA(1) = $
+
+\[
+=
+\begin{bmatrix}
+V1\\
+V2\\
+V3
+\end{bmatrix}\\
+= a \begin{bmatrix} 
+1\\
+-1\\
+0
+\end{bmatrix}
++b\begin{bmatrix} 
+1\\
+0\\
+-1
+\end{bmatrix}
+\]
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
