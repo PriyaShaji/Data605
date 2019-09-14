@@ -1,0 +1,357 @@
+---
+title: "PShaji_Assignment3"
+author: "Priya Shaji"
+date: "9/10/2019"
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Problem set 1
+
+Question 1)
+
+What is the rank of the matrix A?
+
+\[
+A = \begin{bmatrix}
+1 & 2 & 3 & 4\\
+-1 & 0 & 1 & 3\\
+0 & 1 & -2 & 1\\
+5 & 4 & -2 & -3
+\end{bmatrix}
+\]
+
+Answer 1)
+
+Let us create an upper matrix of A.
+
+\[
+A = \begin{bmatrix}
+1 & 2 & 3 & 4\\
+-1 & 0 & 1 & 3\\
+0 & 1 & -2 & 1\\
+0 & 6 & 17 & 23
+\end{bmatrix}
+, R2^*<- R1+R2\\
+R4^*<-(5) R1-R4\\
+R3^*<-R2^*-2R3
+\]
+
+
+\[
+A = \begin{bmatrix}
+1 & 2 & 3 & 4\\
+0 & 2 & 4 & 7\\
+0 & 0 & 8 & 5\\
+0 & 6 & 17 & 23
+\end{bmatrix}
+, R4^{**}<-3R2-R4^*
+\]
+
+\[
+A = \begin{bmatrix}
+1 & 2 & 3 & 4\\
+0 & 2 & 4 & 7\\
+0 & 0 & 8 & 7\\
+0 & 0 & 0 & 9
+\end{bmatrix}
+, R4^{***}<- 5R3^*+8R4^{**}
+\]
+
+We can calculate the upper matrix by counting the non-zero rows, In upper matrix matrix A, the number of non-zero rows are 4, therefore `rank of matrix A is 4`.
+
+
+Question 2)
+
+Given an mxn matrix where m > n, what can be the maximum rank? The minimum rank, assuming that the matrix is non-zero?
+
+Answer 2)
+
+As per definition, number of non-zero rows of the matrix is the rank of the matrix and also maximum rank is min(m,n). Therefore, `maximum rank is n, minimum rank is 1`, since it is a non-zero matrix and there will be at least one row which will have non-zero value. 
+
+
+Question 3) What is the rank of matrix B?
+
+\[
+B = \begin{bmatrix}
+1 & 2 & 1\\
+3 & 6 & 3\\
+2 & 4 & 2\\
+\end{bmatrix}
+\]
+
+Answer 3)
+
+Creating an upper traingular matrix.
+
+\[
+B = \begin{bmatrix}
+1 & 2 & 1\\
+0 & 0 & 0\\
+0 & 0 & 0\\
+\end{bmatrix}
+R2^*<- R2-3R1\\
+R3^*<-R3-2R1
+\]
+
+
+As we can see, there is only 1 row with non-zero values, therefore, `rank of matrix B is 1`.
+
+
+## Problem set 2
+
+Question 1)
+
+Compute the eigenvalues and eigenvectors of the matrix A. You’ll need to show your
+work. You’ll need to write out the characteristic polynomial and show your solution.
+
+\[
+A = \begin{bmatrix}
+1 & 2 & 3\\
+0 & 4 & 5\\
+0 & 0 & 6\\
+\end{bmatrix}
+\]
+
+Answer 1)
+
+As per definition, $(λI-A)V=0$, where V is a non-zero vector if matrix A has a non-trivial null space, and only non-trival matrices have non-trivial null space or only matrices having determinant `0` has non-trivial null space. 
+
+Let's find the characteristic polynomial of matrix A:
+
+
+\[
+A = det(\begin{bmatrix}
+1 & 2 & 3\\
+0 & 4 & 5\\
+0 & 0 & 6\\
+\end{bmatrix}-\begin{bmatrix}
+λ & 0 & 0\\
+0 & λ & 0\\
+0 & 0 & λ\\
+\end{bmatrix})
+\]
+
+\[
+A = det(\begin{bmatrix}
+1-λ & 2 & 3\\
+0 & 4-λ & 5\\
+0 & 0 & 6-λ\\
+\end{bmatrix}
+\]
+
+Now by applying the `sarrus rule`, add the product of diagonal elements from LHS, then subtract the product of diagonal elements from RHS.
+
+$(1-λ)((4-λ)(6-λ)+(-2)(-5)(0)+(-3)(0)(0)-(-2)(0)(λ-6)-(λ-1)(-5)(0)-(-3)(λ-4)(0))=0$
+$(1-λ)(λ^2-10λ+24)=0$
+$λ^3-11λ^2+34λ-24=0$
+
+Therfore , characteristic polynomial is:
+
+$λ^3-11λ^2+34λ-24=0$
+
+
+Now, let us solve the characteristic polynimial to get the eigen values:
+
+$λ^3-11λ^2+34λ-24=0$
+
+$=(1-λ)(λ^2-10λ+24)=0$
+
+$=(1-λ)(λ-4)(λ-6)=0$
+
+Therefore, eigen values are:
+
+$ λ = 1,4,6$
+
+Now, let's solve for eigen vectors of A:
+
+$(λI-A)V=0$
+
+$λI =$
+
+
+\[
+\begin{bmatrix}
+λ & 0 & 0\\
+0 & λ & 0\\
+0 & 0 & λ
+\end{bmatrix}
+\]
+
+
+
+$λI-A =$
+
+\[
+\begin{bmatrix}
+1-λ & 2 & 3\\
+0 & 4-λ & 5\\
+0 & 0 & 6-λ
+\end{bmatrix}
+\]
+
+<strong>Now , λ = 1</strong>
+
+\[
+B= \begin{bmatrix}
+0 & 2  & 3\\
+0 & 3 & 5\\
+0 & 0 & 5
+\end{bmatrix}
+V = 0\] 
+
+Eigen vector for eigen value 1, is null space for the above given matrix.
+Values for V, which will satisfy the matrix make up eigen vectors of eigen space whose $λ = 1$
+
+
+\[
+= \begin{bmatrix}
+0 & 2  & 3\\
+0 & 3 & 5\\
+0 & 0 & 5
+\end{bmatrix}
+\begin{bmatrix}
+V1\\
+V2\\
+V3
+\end{bmatrix}=0
+\]
+
+Solving the matrix:
+
+$5V3=0$
+
+$V3=0$
+
+$V2=(-5/3)V3$
+
+$V2=0$
+
+Therefore, for eigenvalue λ=1, eigenvector is
+
+\[
+= \begin{bmatrix}
+1\\
+0\\
+0 
+\end{bmatrix}
+\]
+
+
+<strong>Now , λ = 4</strong>
+
+\[
+B= \begin{bmatrix}
+-3 & 2  & 3\\
+0 & 0 & 5\\
+0 & 0 & 2
+\end{bmatrix}
+V = 0\] 
+
+Eigen vector for eigen value 4, is null space for the above given matrix.
+Values for V, which will satisfy the matrix make up eigen vectors of eigen space whose $λ = 4$
+
+
+\[
+= \begin{bmatrix}
+-3 & 2  & 3\\
+0 & 0 & 5\\
+0 & 0 & 2
+\end{bmatrix}
+\begin{bmatrix}
+V1\\
+V2\\
+V3
+\end{bmatrix}=0
+\]
+
+Solving the matrix:
+
+$5V3=0$
+
+$V3=0$
+
+$-3V1+2V2=0$
+
+$V2=(3/2)V1$
+
+$V1=1$
+$V2=3/2$
+$V3=0$
+
+Therefore, for eigenvalue λ=4, eigenvector is
+
+\[
+= \begin{bmatrix}
+1\\
+3/2\\
+0 
+\end{bmatrix}
+\]
+
+
+
+<strong>Now , λ = 6</strong>
+
+\[
+B= \begin{bmatrix}
+-5 & 2  & 3\\
+0 & -2 & 5\\
+0 & 0 & 0
+\end{bmatrix}
+V = 0\] 
+
+Eigen vector for eigen value 6, is null space for the above given matrix.
+Values for V, which will satisfy the matrix make up eigen vectors of eigen space whose $λ = 6$
+
+
+\[
+= \begin{bmatrix}
+-5 & 2  & 3\\
+0 & -2 & 5\\
+0 & 0 & 0
+\end{bmatrix}
+\begin{bmatrix}
+V1\\
+V2\\
+V3
+\end{bmatrix}=0
+\]
+
+Solving the matrix:
+
+$-5V1+2V2+3V3=0$
+
+$-2V2+5V3=0$
+
+$V2=(5/2)V3$
+
+$V1=(8/5)V3$
+
+$V1=8/5$
+$V2=5/2$
+$V3=1$
+
+Therefore, for eigenvalue λ=6, eigenvector is
+
+\[
+= \begin{bmatrix}
+8/5\\
+5/2\\
+1 
+\end{bmatrix}
+\]
+
+
+
+
+
+
+
+
