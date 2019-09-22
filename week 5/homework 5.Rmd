@@ -1,0 +1,92 @@
+---
+title: "HW 5"
+author: "Priya Shaji"
+date: "9/22/2019"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+subtitle: 'Chapter 1 Question 4,7: Page 35, Question 8: Page 36'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question 4
+
+
+Describe in words the events specified by the following subsets of
+Ω = {HHH, HHT, HTH, HTT, THH, THT, TTH, TTT}
+(see Example 1.6).
+(a) E = {HHH,HHT,HTH,HTT}. 
+(b) E = {HHH,TTT}.
+(c) E = {HHT,HTH,THH}.
+(d) E = {HHT,HTH,HTT,THH,THT,TTH,TTT}.
+
+
+## Answer 4
+
+A coin is rolled thrice. We let Ω denote the outcome of this experiment. Then the sample space for this experiment is the 8-element set
+Ω = {HHH, HHT, HTH, HTT, THH, THT, TTH, TTT} ,
+where each outcome i, for i = HHH, HHT, HTH, HTT, THH, THT, TTH, TTT, corresponds to the Head and Tail on the
+face which turns up. 
+
+The event<strong>(a) E = {HHH,HHT,HTH,HTT}</strong>
+corresponds to the statement that the result of the three toss is Head occuring in the first toss. Unless there is reason to believe the coin is biased, the natural assumption is that every outcome is equally likely. Adopting this convention means that we assign a probability of 1/8 to each of the eight outcomes, i.e., m(i) = 1/8, for 1 ≤ i ≤ 8.
+
+
+
+The event<strong>(b) E = {HHH,TTT}</strong>
+corresponds to the statement that the result of the three toss is same outcome i.e. three heads and three tails. Unless there is reason to believe the coin is biased, the natural assumption is that every outcome is equally likely. Adopting this convention means that we assign a probability of 1/8 to each of the eight outcomes, i.e., m(i) = 1/8, for 1 ≤ i ≤ 8.
+
+
+The event<strong>(c) E = {HHT,HTH,THH}</strong>
+corresponds to the statement that the result of the three toss gives exactly one tail i.e. HHT,HTH,THH. Unless there is reason to believe the coin is biased, the natural assumption is that every outcome is equally likely. Adopting this convention means that we assign a probability of 1/8 to each of the eight outcomes, i.e., m(i) = 1/8, for 1 ≤ i ≤ 8.
+
+The event<strong>(d) E = {HHT,HTH,HTT,THH,THT,TTH,TTT}</strong>
+corresponds to the statement that the result of the three toss gives at least one tail i.e. HHT,HTH,HTT,THH,THT,TTH,TTT. Unless there is reason to believe the coin is biased, the natural assumption is that every outcome is equally likely. Adopting this convention means that we assign a probability of 1/8 to each of the eight outcomes, i.e., m(i) = 1/8, for 1 ≤ i ≤ 8.
+
+
+## Question 7
+
+Let A and B be events such that P(A∩B)=1/4, P(A ̃̃)=1/3,and P(B)= 1/2. What is P(A∪B)
+
+## Answer 7
+
+P(A U B) means the probability that either A or B occurs, or both; it's the probability that at least one of the events happens. P(AUB)=P(A)+P(B)-P(A∩B)
+
+$P(A ̃̃):$
+
+Complement of A
+Therefore,
+$P(A ̃̃)=1-P(A)$
+
+$P(A)=1-1/3$
+$P(A)=2/3$
+
+$P(AUB)=P(A)+P(B)-P(A∩B)$
+
+$= 2/3+1/2-1/4$
+$=(8+6-3)/12$
+$=11/12$
+
+## Question 8
+
+A student must choose one of the subjects, art, geology, or psychology, as an elective. She is equally likely to choose art or psychology and twice as likely to choose geology. What are the respective probabilities that she chooses art, geology, and psychology?
+
+## Answer 8
+
+P(art) = probability of choosing art
+P(geology) = probability of choosing geology
+P(psychology) = probability of choosing psychology
+
+P(art)=P(psychology)=1, Since they are given asequally likely events
+
+P(geology)=2 ,Since twice as likely to choose geology
+
+P(art)+P(psychology)+P(geology) = 1 (She must choose one of them art or psychology or geology, so sum is 1).
+
+P(art)=0.25. P(psychology)=0.25. P(geology)=0.5 
+
+
