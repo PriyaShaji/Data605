@@ -1,0 +1,114 @@
+---
+title: "HW 6"
+author: "Priya Shaji"
+date: "9/29/2019"
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
+subtitle: Chapter 3,Page 89, Question 10| Chapter 4,Page 152, Question 14
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## A deck of ordinary cards is shuffled and 13 cards are dealt. What is the probability that the last card dealt is an ace?
+
+Answer) 
+
+<strong>case 1:</strong> if the 13th card is equally likely to be any of the 52 cards
+
+Total no. of cards in deck = 52 
+
+No. of cards dealt with = 13
+
+Therefore, 13th card is equally likely to be any of the 52 cards
+
+Probability of an event occurring is the ratio of the number of favourable outcomes for that event and the total possible outcomes of that given event i.e the measure of the likelihood of an event happening.
+
+
+number of favourable outcomes = 4
+
+total possible outcomes of that given event = 52
+
+P(last card dealt is an ace) =  4/52
+= 1/13
+
+
+<strong>case 2:</strong> if the 13th card is not equally likely to be any of the 52 cards, and only be an ace card
+
+Given:
+
+An ordinary deck of cards contain 4 decks(spades,hearts,diamonds,clubs) with 13 cards each. Therefore total cards are 52.
+
+In the given scenario we deal with 13 cards out of which last card is an ace.
+Number of ways to arrange this scenario is:
+
+Not an equaly likely event:
+
+
+1) choosing 12 cards from the deck of 48 cards, i.e. deck without aces:
+
+nCr, where n is the total no. of elements and r is no. of elements that are chosen in given scenario:
+n = 48
+r = 12
+
+$48C12=(n!)/(r!)*(n-r)!$
+
+$= (48!)/(12!)*(36!)$
+
+2) Arranging the 12 chosen cards:
+
+12! ways
+
+3) 13th card to be filled in 4 way's: 4
+
+4) Total no. of ways:
+
+$(48C12) * 12! * 4 $
+
+5) Total no. of ways in which the deck of 13 cards can be arranged is:
+
+$52C12== (52!)/(12!)*(40!)$
+
+Probability(last card dealt is an ace):
+
+$((48C12) * 12! * 4 )/(52C12)$
+
+
+
+
+## If P(B ̃) = 1/4 and P(A|B) = 1/2, what is P(A ∩ B)?
+
+Answer)
+
+P(B ̃) = 1/4
+
+P(B) = 1-P(B ̃)
+
+P(B) = 1-1/4
+
+P(B) = 3/4
+
+P(A|B) = 1/2
+
+
+<strong>Rule of Multiplication:</strong>
+
+The probability that Events A and B both occur is equal to the probability that Event A occurs times the probability that Event B occurs, given that A has occurred.
+
+$P(A ∩ B) = P(B) P(A|B)$
+
+=  3/4 * 1/2
+
+= 3/8
+
+
+
+
+
+
+
+
+
