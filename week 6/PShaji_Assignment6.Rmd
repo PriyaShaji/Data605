@@ -1,0 +1,384 @@
+---
+title: "PShaji_Assignment6"
+author: "Priya Shaji"
+date: "9/30/2019"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Question 1 
+
+A box contains 54 red marbles, 9 white marbles, and 75 blue marbles. If a marble is randomly selected from the box, what is the probability that it is red or blue? Express your answer as a fraction or a decimal number rounded to four decimal places.
+
+### Answer 1 
+
+Given:
+
+Total count of marbles in the box:
+
+= 54+ 9 + 75
+= 138
+
+T = Total no. of outcomes
+N(T) = 138
+
+To find:
+
+Probability that marble selected is red: P(r)
+= no. of red marbles = r = 54
+Probability that marble selected is blue: P(b)
+N(b)= no. of blue marbles = b = 75
+
+Therefore:
+The probability that marble selected is red or blue:
+
+Probability of an event occurring is the ratio of the number of favourable outcomes for that event and the total possible outcomes of that given event i.e the measure of the likelihood of an event happening.
+
+P(M) = The probability that marble selected is red or blue:
+
+P(M)= N(r+n)/N(T)
+
+= 54+75/138
+
+= 129/138
+
+= 43/46
+
+
+### Question 2
+
+You are going to play mini golf. A ball machine that contains 19 green golf balls, 20 red golf balls, 24 blue golf balls, and 17 yellow golf balls, randomly gives you your ball. What is the probability that you end up with a red golf ball? Express your answer as a simplified fraction or a decimal rounded to four decimal places.
+
+### Answer 2
+
+Given:
+
+Total count of balls:
+
+= 19+20+24+17
+
+= 80
+
+ Total no. of outcomes:
+ 
+ n(T) = 80
+ 
+P(T): Probability of total no. of outcomes.
+
+P(r): Probability that you end up with a red golf ball
+
+n(r) = 20
+
+P(r) = n(r)/n(T)
+
+= 20/80
+
+= 1/4
+
+### Question 3
+
+A pizza delivery company classifies its customers by gender and location of residence. The research department has gathered data from a random sample of 1399 customers. The data is summarized in the table below.
+
+```{r echo=FALSE}
+knitr::include_graphics("/Users/priyashaji/Documents/cuny msds/Fall'19/data 605/week 6/Screen Shot 2019-09-30 at 10.56.52 PM.png")
+```
+
+
+What is the probability that a customer is not male or does not live with parents? Write your answer as a fraction or a decimal number rounded to four decimal places.
+
+
+### Answer 3)
+
+Given:
+
+Total count of customers:  1399
+
+ Total no. of outcomes:
+ 
+ n(T) =  1399
+ 
+P(T): Probability of total no. of outcomes.
+
+P(not_male): Probability that customer is not male 
+
+n(not_male) = 228+79+252+97+72
+
+=728
+
+P(parents): Probability that customer does not live with parents
+
+n(parents): 81+116+130+129+228+79+97+72
+
+=476
+
+P(not_male or parents) = n(not_male)+n(parents)/n(T)
+
+= 1184/1399
+
+= 0.8463
+
+### Question 4
+
+Determine if the following events are independent.
+
+Going to the gym. Losing weight.
+
+### Answer 4
+
+A) Dependent
+
+### Question 5
+
+A veggie wrap at City Subs is composed of 3 different vegetables and 3 different condiments wrapped up in a tortilla. If there are 8 vegetables, 7 condiments, and 3 types of tortilla available, how many different veggie wraps can be made?
+
+Total number of vegetables: 3
+
+Vegetables to choose from: 8
+
+Total number of condiments: 3
+
+Condiments to choose from: 7
+
+Total number of tortilla: 1
+
+Tortillas to choose from: 3
+
+```{r}
+City_subs <- choose(8,3)*choose(7,3)*choose(3,1)
+City_subs
+```
+
+
+### Question 6
+
+Determine if the following events are independent.
+
+Jeff runs out of gas on the way to work. Liz watches the evening news.
+
+### Answer 6
+
+B) Independent
+
+
+### Question 7
+
+The newly elected president needs to decide the remaining 8 spots available in the cabinet he/she is appointing. If there are 14 eligible candidates for these positions (where rank matters), how many different ways can the members of the cabinet be appointed?
+
+### Answer 7
+
+Total no. of spots left: 8
+
+No. of candidates to choose from: 14
+
+We will solve this question using permutation since rank matters.
+
+Therefore:
+
+nPr where n is the elements to choose from and r is the Total no. of elements to be taken.
+
+= 14P8
+
+= (14!)/(14-8)!
+
+= (14!)/(6)!
+
+= 121080960
+
+### Question 8
+
+A bag contains 9 red, 4 orange, and 9 green jellybeans. What is the probability of reaching into the bag and randomly withdrawing 4 jellybeans such that the number of red ones is 0, the number of orange ones is 1, and the number of green ones is 3? Write your answer as a fraction or a decimal number rounded to four decimal places.
+
+### Answer 8
+
+no.of red jellybeans: 9
+
+no.of orange jellybeans: 4
+
+no.of green jellybeans: 9
+
+Total no. of jellybeans: 22
+
+Total no. of jellybeans to be withdrawn: 4
+
+Probability of choosing 0 red jellybeans: 9C0
+
+Probability of choosing 1 orange jellybean: 4C1
+
+Probability of choosing 3 green jellybeans: 9C3
+
+Total Probability of choosing 4 from 22 jellybeans: 22C4
+
+
+= (9C0+4C1+9C3)/(22C4)
+
+```{r}
+total <- choose(22,4)
+
+jellybeans <- choose(9,0)*choose(4,1)*choose(9,3) / total
+
+jellybeans
+
+```
+
+
+### Question 9
+
+Evaluate the following expression.
+
+11!/7!
+
+### Answer 9
+
+```{r}
+fact <- factorial(11)/factorial(7)
+fact
+```
+
+
+### Question 10
+
+Describe the complement of the given event.
+
+67% of subscribers to a fitness magazine are over the age of 34.
+
+### Answer 10
+
+(100-67)%
+
+= <strong>37% of subscribers:</strong> complement of 67% of subscribers
+
+
+= <strong>34 years or younger</strong> = complement of  over the age of 34.
+
+
+Therefore:
+
+33% of subscribers to a fitness magazine are 34 years or younger
+
+### Question 11
+
+If you throw exactly three heads in four tosses of a coin you win $97. If not, you pay me $30.
+
+Step 1. Find the expected value of the proposition. Round your answer to two decimal places.
+
+Step 2. If you played this game 559 times how much would you expect to win or lose? (Losses must be entered as negative.)
+
+### Answer 11
+
+Step 1. Find the expected value of the proposition. Round your answer to two decimal places.
+
+```{r}
+expected_value <- dbinom(3, size=4, prob=0.5)
+not_expected_value <- 1 - expected_value
+
+expected_value_proposition = (expected_value * 97) - (not_expected_value * 30) 
+expected_value_proposition
+```
+
+
+Step 2. If you played this game 559 times how much would you expect to win or lose? (Losses must be entered as negative.)
+
+```{r}
+losses = (559*-1.75)
+round(losses,2)
+```
+
+
+### Question 12
+
+Flip a coin 9 times. If you get 4 tails or less, I will pay you $23. Otherwise you pay me $26.
+
+Step 1. Find the expected value of the proposition. Round your answer to two decimal places.
+
+Step 2. If you played this game 994 times how much would you expect to win or lose? (Losses must be entered as negative.)
+
+
+### Answer 12
+
+
+```{r}
+expected_value <- pbinom(4, size=9, prob=0.5)
+not_expected_value <- 1- expected_value
+
+expected_value_proposition = ( expected_value * 23 ) - (not_expected_value * 26)
+expected_value_proposition
+```
+
+
+### Question 13
+
+The sensitivity and specificity of the polygraph has been a subject of study and debate for years. A 2001 study of the use of polygraph for screening purposes suggested that the probability of detecting a liar was .59 (sensitivity) and that the probability of detecting a "truth teller" was .90 (specificity). We estimate that about 20% of individuals selected for the screening polygraph will lie.
+
+a. What is the probability that an individual is actually a liar given that the polygraph detected him/her as such? (Show me the table or the formulaic solution or both.)
+
+b. What is the probability that an individual is actually a truth-teller given that the polygraph detected him/her as such? (Show me the table or the formulaic solution or both.)
+
+c. What is the probability that a randomly selected individual is either a liar or was identified as a liar by the polygraph? Be sure to write the probability statement.
+
+### Answer 13
+<strong> a. </strong>
+
+
+$P(A | B) = $
+
+$P(A and B)/P(B) ≡ P(A ∩ B) /P(B)$
+
+$ P(liar | detected liar) = P(detected liar | liar)/P(detected liar) $
+
+$ P(liar | detected liar) = P(detected liar | liar)/P((1- percent liar)+(1-percent truth)+ P ((percent lie)+(liar)))$
+
+$ P(liar | detedted liar) = (0.59 * 0.2) / ((0.8 * 0.1)+(0.2 * 0.59)$
+
+
+```{r}
+liar <- 0.59
+truth_teller <- 0.9
+tells_lie_percent <- 0.2
+
+polygraph_answer_a <- ((liar * tells_lie_percent))/(((1-tells_lie_percent) * (1-truth_teller)) + (tells_lie_percent * liar))
+
+paste("P(liar | detected lie) =", round(polygraph_answer_a, 4))
+```
+
+
+<strong> b. </strong>
+
+$ P(truth | detected truth) = P(detected truth | truth)/P(detected truth) $
+
+$ P(truth | detected truth) = P(detected truth | truth)/P((1- liar)+(1-percent lie))+ P ((truth)+(1-(percent lie)))$
+
+$ P(truth | detedted truth) = (0.9 * 0.8) / ((0.41 * 0.2)+(0.9 * 0.8)$
+
+
+```{r}
+liar <- 0.59
+truth_teller <-0.9
+tells_lie_percent <- 0.2
+
+polygraph_answer_b <- (((truth_teller) * (1-tells_lie_percent)))/(((1-liar) * (tells_lie_percent)) + (truth_teller * (1-tells_lie_percent)))
+
+paste("P(truth | detected truth) =", round(polygraph_answer_b, 4))
+```
+
+
+<strong> c. </strong>
+
+$P(liar∪identifiedliar)=P(liar)+P(identifiedliar)−P(liar∩identifiedliar)$
+
+$P(liar∪identifiedliar)=P(liar)+P(identifiedliar)−P(liar|identifiedliar)$
+ 
+
+```{r}
+percent_will_lie <- 0.2
+liar <- 0.59
+polygraph_answer_a <- 0.596
+
+(liar + tells_lie_percent) - polygraph_answer_a
+```
+
+
