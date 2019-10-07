@@ -1,0 +1,68 @@
+---
+title: "HW 7"
+author: "Priya Shaji"
+date: "10/6/2019"
+output:
+  html_document:
+    df_print: paged
+subtitle: Chapter 5,Page 222, Question 28
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<strong> An expert witness in a paternity suit testifies that the length (in days) of a pregnancy, from conception to delivery, is approximately normally distributed, with parameters μ = 270, σ = 10. The defendant in the suit is able to prove that he was out of the country during the period from 290 to 240 days before the birth of the child. What is the probability that the defendant was in the country when the child was conceived?</strong>
+
+<strong> Answer</strong>
+
+Since,
+
+z= (X- μ)/sd
+
+where X is the perioid during which he was out of country
+
+μ is given as 10
+
+z1 = (240-270/10)
+
+= -3
+
+Similarly,
+
+z2 = (290-270/10)
+
+= 2
+
+Probability to find: defendant was in the country when the child was conceived
+
+P(defendant was in the country when the child was conceived):
+
+= 1-[P(240 < X < 290)]
+
+= 1 - [P(- 3 < z < 2)] 
+
+= 1 - [P(z < 2) - P(z < - 3)] 
+
+= 1 - [.97725 - .00135] 
+
+= 1 - 0.9759 
+
+= 0.0241
+
+`[P(z < 2) - P(z < - 3)] `: This last expression can be evaluated by using tabulated values of the standard normal distribution function when we use this table, we find that FZ(2) = .97725 and 
+FZ (−3) = .00135. 
+
+Thus, P(defendant was in the country when the child was conceived) is: 0.0241.
+
+
+Link for tabulated values of the standard normal distribution function:
+
+(https://www.math.arizona.edu/~rsims/ma464/standardnormaltable.pdf)
+
+
+
+
+
+
+
