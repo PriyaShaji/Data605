@@ -1,0 +1,200 @@
+---
+title: "PShaji_Assignment7"
+author: "Priya Shaji"
+date: "10/12/2019"
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question 1
+
+Let X1, X2, . . . , Xn be n mutually independent random variables, each of which is uniformly distributed on the integers from 1 to k. Let Y denote the minimum of the Xi’s. Find the distribution of Y.
+
+## Answer 1
+
+Let us compute the function of Y
+
+Given that:
+
+Y = Min(X1, X2, . . . , Xn) = Xi 
+
+where  Xi is the minimum value.
+
+We can find the distribution of Y by applying binomial distribution.
+
+Therefore,
+
+$n!/(n-1)!1! * p^(1) * q^(n-1)$
+
+$=  n * p * q^(n-1)$
+
+$=  n *  (1/k)* (n-1/k)^(n-1)$
+
+$=  n * (1/k) * (n-1)^(n-1)/k^(n-1)$
+
+$=  n * (n-1)^(n-1)/K^n$
+
+Where,
+
+$Xi = successful trial (minimum value)$
+
+$X1 to Xi-1, Xi+1 to Xn = failed trials$
+
+$n = number of trials$
+
+$k = population size (total possible outcomes per trial)$
+
+$p = 1/k probability of success$
+
+$q = n-1/k probability of failure$
+
+## Question 2
+
+Your organization owns a copier (future lawyers, etc.) or MRI (future doctors). This machine has a manufacturer’s expected lifetime of 10 years. This means that we expect one failure every ten years. (Include the probability statements and R Code for each part.).
+
+a. What is the probability that the machine will fail after 8 years?. Provide also the expected value and standard deviation. Model as a geometric. (Hint: the probability is equivalent to not failing during the first 8 years..)
+
+b. What is the probability that the machine will fail after 8 years?. Provide also the expected value and standard deviation. Model as an exponential.
+
+c. What is the probability that the machine will fail after 8 years?. Provide also the expected value and standard deviation. Model as a binomial. (Hint: 0 success in 8 years)
+
+d. What is the probability that the machine will fail after 8 years?. Provide also the expected value and standard deviation. Model as a Poisson.
+
+
+## Answer 2
+
+<strong>Ans a)</strong>
+Given: Expects one failure every ten yrs
+
+Mean(machine_fails) = 10 yrs
+
+Now, for geometric model distribution:
+
+mean = 1/p
+
+10 = 1/p
+
+Probability of failure:
+
+p = 1/10
+
+
+1) Standard deviation:
+
+```{r}
+p = 0.10
+SD = sqrt((1-p)/(p^2))
+SD
+```
+
+
+Probability that the machine will fail after 8 years:
+
+Discrete:
+
+```{r}
+p = 0.10
+count = 0
+for (i in 1:8)
+{
+   count = count + (1-p)^i*p
+}
+1 - count
+```
+
+<strong>Ans b)</strong>
+
+Mean(machine_fails) = 10 yrs
+
+Exponential probability distribution mean :
+
+= beta = 1/lambda = 1/10
+
+standard deviation, for exponential distribution:
+
+= 1/lamba = 1/10
+
+The cummlative distribution fucntion (CDF) for an exponetial distribution:
+
+$f(x,lambda) = 1 - e^(-lambdax), where x >= 0 and 0 where x < 0 f(8,1/10)= 1 - e^(-1/10(8)), for x = 8$
+
+Probability that the machine will fail after 8 years:
+
+Continuous:
+
+```{r}
+count = (1 - exp(1)^(-0.10*8))
+1 - count
+
+```
+
+
+<strong>Ans c)</strong>
+
+Probability of success in 8 years:
+
+p = 1/10
+
+Number of trials = 8
+
+Standard deviation:
+
+```{r}
+p = 0.10
+n = 8
+SD = sqrt(n*p*(1-p))
+SD
+```
+
+
+k = number of successes in n trials = 0 PMF
+
+$Formula for binomial distribution - P(k,n.p) = p(X=0) = nCrK * p^k * (1-p)^n-k$
+
+Probability of 8 straight failures without success
+
+```{r}
+
+p = 0.10
+n = 8
+k =0
+count = choose(n, k)*p^k*(1-p)^(n-k)
+count
+```
+
+
+<strong>Ans d)</strong>
+
+
+Poisson distribution:
+
+lambda = rate/unit time = 1
+
+machine breakdown per 10 years = expected value
+
+Standard deviation is sqrt(lambda) = sqrt(1) = 1
+
+Probability of k = 0 breakdowns in years 1 through 8
+
+Probability of 8 straight failures without success
+
+```{r}
+p = 0.10
+n = 8
+k =0 
+count = (1^k*exp(1)^(-1))/factorial(k)  
+count
+
+```
+
+
+
+
+
+
