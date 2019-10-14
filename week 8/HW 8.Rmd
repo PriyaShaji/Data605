@@ -1,0 +1,49 @@
+---
+title: "HW 8"
+author: "Priya Shaji"
+date: "10/13/2019"
+output:
+  html_document:
+    df_print: paged
+subtitle: Chapter 8,Page 312, Question 1
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### A fair coin is tossed 100 times. The expected number of heads is 50, and the standard deviation for the number of heads is (100 · 1/2 · 1/2)1/2 = 5. What does Chebyshev’s Inequality tell you about the probability that the number of heads that turn up deviates from the expected number 50 by three or more standard deviations (i.e., by at least 15)?
+
+<strong>Answer:</strong>
+
+Given: 
+
+Expected number of heads: 50
+
+Standard deviation: 5
+
+Required: Probability that the number of heads that turn up deviates from the expected number 50 by three or more standard deviations
+
+therefore, k=3
+
+Chebyshev’s Inequality:
+
+$P(|X−μ|≥kσ)≤σ^2/k^2σ^2$
+
+$=1/k^2$
+
+$1/k^2$
+
+$=1/3^2$
+
+$=1/9$
+
+$=0.11$
+
+
+According to the solution: Probability that number of heads deviates from the mean by 3 or more standard deviations is 11%.
+
+
+
+
+
