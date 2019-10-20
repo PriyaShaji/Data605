@@ -1,0 +1,144 @@
+---
+title: "PShaji_Assignment8"
+author: "Priya Shaji"
+date: "10/19/2019"
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
+subtitle: Question 11 and 14,Page 303 of probability text| Question 1,Page 320-321
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+###  A company buys 100 lightbulbs, each of which has an exponential lifetime of 1000 hours. What is the expected time for the first of these bulbs to burn out? (See Exercise 10.)
+
+<strong> Answer </strong>
+
+Given: 
+
+Expected life is 1000 hours(exponential lifetime)
+
+$λ = 1/1000$
+
+If company buys 100 lightbulbs:
+
+$λ = 100*(1/1000)$
+
+$= 10$
+
+Therefore, it will take 10 hrs for the first of these bulbs to burn out.
+
+
+### Assume that X1 and X2 are independent random variables, each having an exponential density with parameter λ. Show that Z = X1 − X2 has density
+
+$fZ(z)=(1/2)λe−λ|z|$
+
+<strong> Answer </strong>
+
+Given:
+
+Two random numbers in interval [0,∞] with an exponential density. Therefore, if X,Y and Z = X+Y
+
+fx(x)=fy(x)={$λe^{−λx}$,   if x≥0
+              0,           otherwise
+ 
+ 
+For W = X + Y
+
+$= fw(w)= ∫_{-∞}^{∞}f_{x}(x)f_{y}(w−x)dx$
+
+ 
+for Z = X1 - X2, let us say Z = X + (-Y), so
+
+$= fz(z)=∫^{∞}_{−∞}f_{x}(x)f_{−y}(z−x)dx$
+
+Therefore,
+
+$= f_{−y}(z−x)=f_{y}(x−z)$
+ 
+$= fz(z)=∫^{∞}_{−∞}f_{x}(x)f_{y}(x−z)dx$
+ 
+$= fz(z)=∫^{∞}_{0}λe^{−λx}λe^{−λ(x−z})dx$
+ 
+$= λe^{λz}∫^{∞}_0λe^{−2λx}dx$
+ 
+$= λe^{λz}(−1/2e^{−2λx}∣^{∞}_{0})$
+
+The required density is evaluated below:
+
+$= fZ(z)=(1/2)λe^{−λ|z|}$
+ 
+
+### Let X be a continuous random variable with mean μ = 10 and variance σ2 = 100/3. Using Chebyshev’s Inequality, find an upper bound for the following probabilities.
+
+(a) P(|X−10|≥2). 
+
+(b) P(|X−10|≥5). 
+
+(c) P(|X−10|≥9).
+
+(d) P(|X − 10| ≥ 20).
+
+According to Chebyshev’s Inequality:
+
+Suppose that μ = E(X) and σ^2 = V(X), then for any positive number ϵ > 0 we have
+
+$P(|X−μ|≥kσ)≤σ^2/k^2σ^2=1/k^2$
+ 
+```{r}
+cheby <- function(e, x){
+    pX = x / e^2
+    return(pX)
+}
+```
+
+
+<strong>(a) P(|X−10|≥2)</strong>
+
+
+```{r}
+x <- 100/3
+e <- 2
+ans <- cheby(e, x)
+ans
+```
+
+
+<strong>(b) P(|X−10|≥5)</strong>
+
+
+```{r}
+e <- 5
+ans <- cheby(e, x)
+ans
+```
+
+
+<strong>(c) P(|X−10|≥9)</strong>
+
+
+```{r}
+e <- 9
+ans <- cheby(e, x)
+ans
+```
+
+
+<strong>(d) P(|X − 10| ≥ 20)</strong>
+
+
+```{r}
+e <- 20
+p <- cheby(e, x)
+p
+```
+
+
+
+
+
+
+
