@@ -1,0 +1,126 @@
+---
+html_document:
+  df_print: paged
+author: "Priya Shaji"
+date: "10/20/2019"
+output:
+  html_document:
+    df_print: paged
+subtitle: Chapter 9,Page 339, Question 11
+title: "HW 9"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Write a computer program to simulate 10,000 Bernoulli trials with probability .3 for success on each trial. Have the program compute the 95 percent confidence interval for the probability of success based on the proportion of successes. Repeat the experiment 100 times and see how many times the true value of .3 is included within the confidence limits.
+
+<strong> Answer</strong>
+
+Given:
+
+1) Simulate 10,000 Bernoulli trials:
+
+```{r}
+central_limit <- runif(10000)
+# Display first few values of the trials
+head(central_limit)
+```
+
+2) Let's calculate the interval conditions according to the given requirements:
+
+```{r}
+# Minimum limit
+
+min(central_limit)
+
+# Maximum Limit
+
+max(central_limit)
+
+
+# Length of simulations
+
+length(central_limit)
+
+```
+
+
+3) Computer program to simulate 10,000 Bernoulli trials with probability 0.3
+
+```{r}
+success = 0 # to calculate success on each trial
+for(trial in central_limit){
+  if(trial <= 0.3){ # simulate 10,000 Bernoulli trials with probability 0.3
+    success = success + 1
+  }
+}
+success/length(central_limit)
+```
+
+
+4) Repeat the experiment 100 times and see how many times the true value of 0.3 is included within the confidence limits.
+
+
+```{r}
+central_limit_100 <- function(){
+  vec = vector()
+  for(i in 1:100){
+    central_limit <- runif(10000)
+    success = 0
+    for(trial in central_limit){
+      if(trial <= 0.3){
+      success = success + 1
+      }
+    }
+    vec[i] = success/length(central_limit)
+  }
+return(vec)
+}
+
+```
+
+5) Let's plot histogram to analyze CLT demonstrated:
+
+```{r}
+hist(central_limit_100())
+
+```
+
+
+The CLT demonstrated here:  Data was taken from a uniform distribution, and also, proportion of successes are normally distributed about the expected value of 0.3.
+
+We will now use the central_limit_100 function to test against the 95% confidence intervals $p±1.96∗\sqrt{pq/n}$:
+
+where:
+p = 0.3, q = 0.7, n = 10000
+
+```{r}
+p = 0.3
+q = 0.7
+n = 10000
+trials <- central_limit_100()
+# calculate lower bound
+lower_bound = p - 1.96*(p*q/n)^0.5
+lower_bound
+
+```
+
+
+
+```{r}
+# calculate upper bound
+upper_bound = p + 1.96*(p*q/n)^0.5
+upper_bound
+```
+
+6) As a final step let's see how many times the true value of 0.3 is included within the confidence limits.
+
+```{r}
+ans <- trials <= upper_bound & trials >= lower_bound
+table(ans)
+```
+
+
+Therefore out of 100, 'TRUE Value' is expected to be within the 95% confidence interval.
