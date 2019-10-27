@@ -1,0 +1,123 @@
+---
+title: "PShaji_Assignment9"
+author: "Priya Shaji"
+date: "10/21/2019"
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### The price of one share of stock in the Pilsdorff Beer Company (see Exer- cise 8.2.12) is given by Yn on the nth day of the year. Finn observes that the differences Xn = Yn+1 − Yn appear to be independent random variables with a common distribution having mean μ = 0 and variance σ2 = 1/4. If Y1 = 100, estimate the probability that Y365 is (a) ≥ 100. (b) ≥ 110. (c) ≥ 120.
+
+<strong>Answer</strong>
+
+<strong>(a) ≥ 100 </strong>
+
+```{r}
+mean <- 0  
+var <- 1/4
+sd <- sqrt(var)
+n <- 364  
+x <- 0/sqrt(n)
+pnorm(x, mean, sd, lower.tail = FALSE)
+```
+
+
+<strong>(b) ≥ 110 </strong>
+
+```{r}
+x <- 10/sqrt(n)
+pnorm(x, mean, sd, lower.tail = FALSE)
+```
+
+<strong>(b) ≥ 120 </strong>
+
+```{r}
+x <- 20/sqrt(n)
+pnorm(x, mean, sd, lower.tail = FALSE)
+
+```
+
+
+### Calculate the expected value and variance of the binomial distribution using the moment generating function.
+
+<strong>Answer</strong>
+
+Binomial moment generating function:
+
+$M(t) =  (pe^t + q)^n$
+
+Expected value => 1st derivative
+
+$M`(t) = n(pe^t + q)^{n-1}* pe^t$
+
+$E(x) = M`(0) = np$
+
+Variance => 2nd derivative
+
+$M``(t) = n[1-p+pe^t]^{n-1}(pe^t)n(n-1)(1-p+pe^t)^{n-2}(pe^t)$
+
+$E(x^2) = M``(0) = n(n-1) p^2 + np$
+
+$var(x) = E(x^2) - E(x)^2$
+
+$var(x) = n(n-1)p^2+np-(np)^{2}$
+
+$var(x) = (n^2p^2 - 1 np^2) +np - (np)^{2}$
+
+$var(x) = (np^2) - np^2 +np - (np)^{2}$
+
+$var(x) = np - np^2$
+
+$var(x) = np(1-p)$
+
+### Calculate the expected value and variance of the exponential distribution using the moment generating function.
+
+<strong> Answer </strong>
+
+Exponential moment generating function:
+
+$M(t) = λ/λ-t$
+
+Expected value => 1st derivative
+
+$M`(t) = λ/(λ-t)^{2}$
+
+$E(x) = M`(0) = λ/λ^2 = 1/λ$
+
+Variance => 2nd derivative
+
+$M``(t) = 2λ/(λ-t)^3$
+
+$E(x^2) = M``(0) = 2λ/λ^3 = 2/λ^2$
+
+$var(x) = E(x^2) - E(x)^2$
+
+$var(x) = 2/λ^2 - 1/λ^2 = 1/λ^2$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
