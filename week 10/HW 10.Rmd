@@ -1,0 +1,138 @@
+---
+html_document:
+  df_print: paged
+author: "Priya Shaji"
+date: "10/20/2019"
+output:
+  html_document:
+    df_print: paged
+subtitle: Chapter 11,Page 424, Question 15
+title: "HW 10"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Consider the game of tennis when deuce is reached. If a player wins the next point, he has advantage. On the following point, he either wins the game or the game returns to deuce. Assume that for any point, player A has probability .6 of winning the point and player B has probability .4 of winning the point. (a) Set this up as a Markov chain with state 1: A wins; 2: B wins; 3: advantage A; 4: deuce; 5: advantage B. (b) Find the absorption probabilities. (c) At deuce, find the expected duration of the game and the probability that B will win.
+
+<strong>Answer (a)
+
+(a) Set this up as a Markov chain with state 1: A wins; 2: B wins; 3: advantage A; 4: deuce; 5: advantage B. </strong>
+
+Step 1)  Compose transition matrix
+
+
+```{r}
+Markov_chain_state_names <- c("S1: Game_Win A", "S2: Game_Win B", "S3: Advan A", "S4: Deuce", "S5: Advan B")
+Markov_chain<- matrix(c(1, 0, 0, 0, 0,
+                  0, 1, 0, 0, 0,
+                  .6, 0, 0, .4, 0,
+                  0, 0, .6, 0, .4,
+                  0, .4, 0, .6, 0),
+                nrow = 5, byrow = TRUE)
+colnames(Markov_chain) <- Markov_chain_state_names
+rownames(Markov_chain) <- Markov_chain_state_names
+Markov_chain
+```
+
+
+
+<strong> Answer (b)
+
+(b) Find the absorption probabilities. </strong>
+
+Step 2)  Change the transition matrix to canonical form
+
+```{r}
+
+Markov_chain <- Markov_chain[, c(3:5, 1:2)]
+Markov_chain <- Markov_chain[c(3:5, 1:2),]
+Markov_chain
+```
+
+
+Step 3) Subset matrix Q (transient to transient) 
+
+Step 4) Subset matrix R (transient to absorbing)
+
+Step 5) Compose an identity matrix I with same dimensions as Q
+
+Step 6) Compute the fundamental matrix by solving the set of linear equations
+
+Step 7) Compute absorption probabilities
+
+```{r}
+Q <- Markov_chain[1:3, 1:3]  
+R <- Markov_chain[1:3, 4:5]  
+I <- diag(3) 
+N <- solve(I - Q)  
+M <- N %*% R 
+M
+```
+
+
+<strong>Answer (c)
+
+(c) At deuce, find the expected duration of the game and the probability that B will win </strong>
+
+Step 8) Compute expected steps to absorption
+
+Step 9) Column vector of 1s
+
+Step 10) Calculate expected steps to absorption
+
+Step 11) Expected duration of the game in steps
+
+```{r}
+
+c<- c(rep(1, 3))   
+Nc <- N %*% c  
+
+
+Nc[2,1]
+```
+
+Step 12) Probability that B will win
+
+
+```{r}
+
+M[2,2]
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
