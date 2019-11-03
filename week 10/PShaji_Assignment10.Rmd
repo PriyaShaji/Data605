@@ -1,0 +1,73 @@
+---
+title: "PShaji_Assignment10"
+author: "Priya Shaji"
+date: "11/2/2019"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+### Smith is in jail and has 1 dollar; he can get out on bail if he has 8 dollars.A guard agrees to make a series of bets with him. If Smith bets A dollars, he wins A dollars with probability .4 and loses A dollars with probability .6. Find the probability that he wins 8 dollars before losing all of his money if (a) he bets 1 dollar each time (timid strategy). (b) he bets, each time, as much as possible but not more than necessary to bring his fortune up to 8 dollars (bold strategy). (c) Which strategy gives Smith the better chance of getting out of jail?
+
+<strong> Answer  (a) he bets 1 dollar each time (timid strategy) </strong>
+
+probability of winning A dollars: 0.4
+
+probability of losing A dollars: 0.6
+
+```{r}
+p <- 0.4
+q <- 0.6
+r <- q/p
+
+
+for (i in 0:8){
+ans <- round((1-r^i)/(1-r^8),4)
+print (ans)
+}
+```
+
+
+<strong> Answer (b) he bets, each time, as much as possible but not more than necessary to bring his fortune up to 8 dollars (bold strategy) </strong>
+
+```{r}
+bold_1 <- matrix(c(1,0.6,0.6,0.6,0,0,0,0,0,0,0,0.4,0,0,0,0,0,0.4,0,0,0,0,0,0.4,1),nrow = 5, byrow=FALSE)
+bold_1
+```
+
+
+```{r}
+bold_2 <- matrix(c(0,1,0,0,0),nrow=1)
+bold_2
+```
+
+
+```{r}
+bold_3 <- bold_2 %*% bold_1
+bold_3
+```
+
+
+```{r}
+bold_4 <- bold_3 %*% bold_1
+bold_5 <- bold_4 %*% bold_1
+bold_5
+```
+
+
+Therefore, the probabity is 0.064
+
+
+<strong> Answer (c) Which strategy gives Smith the better chance of getting out of jail?
+ </strong>
+
+
+The probability of bold strategy is better than timid strategy to get out of jail.
+
+
+
+
+
+
+
