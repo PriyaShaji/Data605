@@ -1,0 +1,85 @@
+---
+title: "HW 11"
+author: "Priya Shaji"
+date: "11/3/2019"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+### Using R, build a  regression model for data that interests you.  Conduct residual analysis.  Was the linear model appropriate? Why or why not?
+
+Dataset: Air Quality built-in dataset of R
+
+"Air Quality" dataset contains daily air quality measurements in New York recorded from May to September 1973. The model compares Ozone (mean ozone in parts per billion from 1300 to 1500 hours at Roosevelt Island) with Temp (maximum daily temperature in degrees Fahrenheit at La Guardia Airport).
+
+Step 1) load the dataset
+
+```{r}
+data("airquality")
+head(airquality)
+```
+
+
+```{r}
+plot(airquality$Temp, airquality$Ozone, 
+     xlab='Maximum Daily Temperature at La Guardia Airport (F)',
+     ylab='Ozone Concentration at Roosevelt Island (ppb)',
+     main='Temperature vs Ozone (May 1 - Sept 30, 1973)')
+```
+
+
+THe above model seems to have a correlation.
+
+Step 2) Let's build a simple linear regression model
+
+```{r}
+linear_regression <- lm(airquality$Ozone ~ airquality$Temp)
+summary(linear_regression)
+```
+
+
+
+R-squared value = 0.48. Therefore, our model shows approx 50% varibility.
+
+Step 3) Plotting regression line
+
+```{r}
+plot(airquality$Ozone ~ airquality$Temp, 
+     xlab='Maximum Daily Temperature at La Guardia Airport (F)',
+     ylab='Mean Ozone at Roosevelt Island (ppb)',
+     main='Temperature vs Ozone (May 1 - Sept 30, 1973)')
+abline(linear_regression)
+```
+
+
+Step 3) Now, plot the residuals
+
+```{r}
+plot(linear_regression$residuals, ylab='Residuals')
+abline(a=0, b=0)
+```
+
+
+No. as we go through the residuals plot , varaibility seems constant with no significant pattern.
+
+Step 4) Plot the Q-Q plot(quantile-quntile)
+
+```{r}
+qqnorm(linear_regression$residuals)
+qqline(linear_regression$residuals)
+```
+
+The Q-Q plot looks even except noth tails at either side.
+
+
+<strong>Conclusion</strong>
+
+The R-squared value is approx 50%, therefore model describes almost 50% of variability.Residual plot shows that variability is constant with no pattern. The Q-Q plot looks even except noth tails at either side.
+
+Therefore, as per the above insights, Temperature is statistically significant variable to predict ozone concentration at all levels. Looking at the plots, there are few outliers, Non-linear model can fit the data better
+
+
+
+
