@@ -1,0 +1,102 @@
+---
+title: "PShaji_Assignment11"
+author: "Priya Shaji"
+date: "11/9/2019"
+output:
+  html_document:
+    df_print: paged
+---
+
+### Using the “cars” dataset in R, build a linear model for stopping distance as a function of speed and replicate the analysis of your textbook chapter 3 (visualization, quality evaluation of the model, and residual analysis.)
+
+Step 1) Load the built-in dataset of R: `cars`
+
+Step 2) Display first few rows of `cars` dataset
+
+
+```{r}
+
+library(tidyverse)
+
+head(cars)
+
+```
+
+
+#### Visualization
+
+Step 3) Let us now visualize our data
+
+```{r}
+cars %>%
+  ggplot(aes(speed,dist)) +
+  geom_point() + 
+  geom_smooth(method = lm,se = F)+
+  labs(title = "Cars",
+       x = "Speed", y = "Distance") +
+  theme_minimal()
+```
+
+
+In the scatter plot above: there is positive linear trend between speed and distance.
+
+Step 4) Build a linear model for stopping distance as a function of speed
+
+```{r}
+cars_lm <- lm(speed ~ dist, data = cars)
+cars_lm
+```
+
+
+#### Quality evaluation of the model
+
+Step 5) Summary of the linear model : `cars_lm`
+
+```{r}
+summary(cars_lm)
+```
+
+
+The summary of the linear regression model shows that min-max and 1Q-3Q has approximately similar magnitudes and the median is close to zero. 
+
+Therefore, this model is good but lets do some more evaluation. The standard error is 49 times smaller than the corresponding coefficient. 
+
+The p-value shows that the probability of this variable is very low to be considered irrelevant. 
+
+R-squared is 0.65, which means this model explains 65% of the data’s variation. 
+Therefore,this is a good model.
+
+
+
+
+#### Residual analysis
+
+Step 6) Let's build a residual plot for our linear model
+
+```{r}
+cars_lm %>% 
+  ggplot(aes(fitted(cars_lm), resid(cars_lm))) +
+  geom_point() +
+  geom_smooth(method = lm, se =F) +
+  labs(title = "Residual Analysis",
+       x = "Fitted Line", y = "Residuals") +
+  theme_minimal()
+```
+
+
+
+Step 7) Plot the Q-Q plot
+
+
+```{r}
+cars_lm %>% 
+  ggplot(aes(sample = resid(cars_lm))) +
+  stat_qq() +
+  stat_qq_line() +
+  labs(title = "Q-Q Plot") +
+  theme_minimal()
+```
+
+
+As we see in the residual plot above, variance of residuals are not uniform which tells that our explanatory variable does not fully explain the data. But if we look at the quartile-quartile plot, we see that the residulas are normally distributed. Therefore, overall this is a good model.
+
