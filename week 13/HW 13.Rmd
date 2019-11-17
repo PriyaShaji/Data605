@@ -1,0 +1,92 @@
+---
+title: "HW 13"
+author: "Priya Shaji"
+date: "11/17/2019"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+subtitle: Calculus Book,Chapter 4,Page 179, Question 9
+---
+
+```{r echo=FALSE}
+knitr::include_graphics("/Users/priyashaji/Documents/cuny msds/Fall'19/data 605/week 13/ques 9.png")
+```
+
+
+<strong> a) 1 foot from the house </strong>
+
+```{r}
+# assign x as 1
+x <- 1
+
+# assign y as square root of the value:(ladder height square - slide rate square) 
+y <- sqrt(24^2 - x^2)
+
+# compute derivative of x
+dxdt <- 1
+
+# compute derivative of y
+dydt <- -x*dxdt/y
+dydt
+
+```
+
+
+
+<strong> b) 10 foot from the house </strong>
+
+```{r}
+# assign x as 10
+x <- 10
+
+# assign y as square root of the value:(ladder height square - slide rate square) 
+y <- sqrt(24^2 - x^2)
+
+# compute derivative of x
+dxdt <- 1
+
+# compute derivative of y
+dydt <- -x*dxdt/y
+dydt
+
+```
+
+
+
+<strong> c) 23 foot from the house </strong>
+
+```{r}
+# assign x as 23
+x <- 23
+
+# assign y as square root of the value:(ladder height square - slide rate square) 
+y <- sqrt(24^2 - x^2)
+
+# compute derivative of x
+dxdt <- 1
+
+# compute derivative of y
+dydt <- -x*dxdt/y
+dydt
+
+```
+
+
+<strong> d) 24 foot from the house </strong>
+
+```{r}
+# assign x as 24
+x <- 24
+
+# assign y as square root of the value:(ladder height square - slide rate square) 
+y <- sqrt(24^2 - x^2)
+
+# compute derivative of x
+dxdt <- 1
+
+# compute derivative of y
+dydt <- -x*dxdt/y
+dydt
+
+```
