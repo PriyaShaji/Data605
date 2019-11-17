@@ -1,0 +1,203 @@
+---
+title: "PShaji_Assignment12"
+author: "Priya Shaji"
+date: "11/15/2019"
+output:
+  html_document:
+    df_print: paged
+---
+
+
+<strong>The attached who.csv dataset contains real-world data from 2008. The variables included follow.
+Country: name of the country
+LifeExp: average life expectancy for the country in years
+InfantSurvival: proportion of those surviving to one year or more
+Under5Survival: proportion of those surviving to five years or more
+TBFree: proportion of the population without TB.
+PropMD: proportion of the population who are MDs
+PropRN: proportion of the population who are RNs
+PersExp: mean personal expenditures on healthcare in US dollars at average exchange rate
+GovtExp: mean government expenditures per capita on healthcare, US dollars at average exchange rate TotExp: sum of personal and government expenditures.
+1. Provide a scatterplot of LifeExp~TotExp, and run simple linear regression. Do not transform the variables. Provide and interpret the F statistics, R^2, standard error,and p-values only. Discuss whether the assumptions of simple linear regression met.
+2. Raise life expectancy to the 4.6 power (i.e., LifeExp^4.6). Raise total expenditures to the 0.06 power (nearly a log transform, TotExp^.06). Plot LifeExp^4.6 as a function of TotExp^.06, and r re-run the simple regression model using the transformed variables. Provide and interpret the F statistics, R^2, standard error, and p-values. Which model is "better?"
+3. Using the results from 3, forecast life expectancy when TotExp^.06 =1.5. Then forecast life expectancy when TotExp^.06=2.5.
+4. Build the following multiple regression model and interpret the F Statistics, R^2, standard error, and p-values. How good is the model?
+LifeExp = b0+b1 x PropMd + b2 x TotExp +b3 x PropMD x TotExp
+5. Forecast LifeExp when PropMD=.03 and TotExp = 14. Does this forecast seem realistic? Why or why not?</strong>
+
+
+Load the dataset
+
+
+
+
+```{r}
+who_df <- read.csv("https://raw.githubusercontent.com/PriyaShaji/Data605/master/week%2012/who.csv")
+head(who_df)
+```
+
+<strong> 1. Provide a scatterplot of LifeExp~TotExp, and run simple linear regression. Do not transform the variables. Provide and interpret the F statistics, R^2, standard error,and p-values only. Discuss whether the assumptions of simple linear regression met.</strong>
+
+
+<strong> Answer </strong>
+
+```{r}
+attach(who_df)
+```
+
+
+Check for correlation between 2 variables
+
+```{r}
+cor(LifeExp,TotExp)
+```
+
+
+Plot a scatterplot
+
+
+```{r}
+plot(TotExp,  LifeExp, main='scatterplot', ylab='Life Expentancy', xlab = 'Total Expenditure', col=2)
+abline(lm(LifeExp~TotExp), col=1)
+```
+
+
+
+Run a simple linear regression
+
+```{r}
+linear_regression = lm(LifeExp~TotExp)
+linear_regression
+```
+
+
+
+
+Summarise the coefficients
+
+```{r}
+summary(linear_regression)
+```
+
+
+Linear Regression Model Summary:
+
+Life Expentancy = 64.75 + .000063 * Total Expenditure
+
+The model above shows a negative y intercept (Total Expenditure on healtcare). Which means the model would give negative Total Expenditure if life expendtacy is less than ~65. The model at the onset, is not realistic. The model reflects the very small amount low Life Expentancy countries spend on healthcare when compared to the Total Expentiture by high Life Expentancy countries.
+
+Multiple R-squared: 0.2577, Adjusted R-squared: 0.2537 - The low R-squared value tells us that our model only explains around 25% of the response variable (Life expentancy in response to Total Expenditure) around the mean.
+
+F-statistic: 65.26 on 1 and 188 DF, p-value: 7.714e-14 - the p-value of the model is really low which means we can confindetly reject the null hypothesis (that Total Expenditure DOES NOT contribute to a country’s Life Expentancy). We can say that the variable does contribute to the model, its ony a minor contributor.
+
+Residual standard error: 9.371 on 188 degrees of freedom - 9.371 Residual standard error also tells us the SE is somewhat high (about 10 man years). This means that some the sample data points are significantly off the fitted line. This means that countries who contribute significantly less in healthcare expenditure than what the model would predict, have nonetheless sustain a life expectancy that is significantly higher than expected.
+
+
+<strong> 2. Raise life expectancy to the 4.6 power (i.e., LifeExp^4.6). Raise total expenditures to the 0.06 power (nearly a log transform, TotExp^.06). Plot LifeExp^4.6 as a function of TotExp^.06, and r re-run the simple regression model using the transformed variables. Provide and interpret the F statistics, R^2, standard error, and p-values. Which model is "better?"</strong>
+
+
+<strong> Answer </strong>
+
+Check for correlation between two variables
+
+```{r}
+TotExp2 = TotExp^0.06
+LifeExp2 = LifeExp^4.6
+cor(LifeExp2,TotExp2)     
+```
+
+
+ 
+```{r}
+plot(TotExp2, LifeExp2, main='scatterplot', ylab='Life Expentancy', xlab = 'Total Expenditure', col=2)
+abline(lm(LifeExp2~TotExp2), col=1)
+```
+
+
+```{r}
+linear_regression_second = lm(LifeExp2~TotExp2)
+linear_regression_second
+```
+
+
+
+
+```{r}
+summary(linear_regression_second)
+```
+
+
+Linear Regression Model Summary:
+
+Life Expectancy^4.6 = -736527909 + 620060216 * Total Expenditure^0.06
+
+By looking at the regression line for this transformed model and comparing it against the previous model, I can say that the transformed model is the better model since the data points are more closely clustered around the regression line of the model.
+
+Multiple R-squared: 0.7298, Adjusted R-squared: 0.7283 R-squared value of close to 73% is much better than the ~26% R-squared value for the first model. This means that the response variable (life expentancy^4.6) explains the model’s variability around the mean 75% of the time.
+
+F-statistic: 507.7 on 1 and 188 DF, p-value: < 2.2e-16 - the p-value of the model is really low which means we can confindetly reject the null hypothesis (that Total Expenditure^0.06 DOES NOT contribute to a country’s Life Expentancy^4.6). We can say that the variable does contribute to the model, in a greater way than the orignial model.
+
+Residual standard error: 90,490,000 on 188 degrees of freedom Suprising high Residual SE even when we consider that life Expentancy was increased expontially by 4.6. This contradicts the R-squared and F-statistics finding but since the original scatterplot does show that countries with low life expectancy have even much lower Total Expenditures. Since we increase these values exponentially, the SE should would also increase exponentially.
+
+
+
+<strong>3. Using the results from 3, forecast life expectancy when TotExp^.06 =1.5. Then forecast life expectancy when TotExp^.06=2.5</strong>
+
+<strong> Answer</strong>
+
+Linear Regression Model Summary:
+
+Life Expectancy^4.6 = 64.75 + 620060216 * Total Expenditure^0.06
+
+```{r}
+LifeExp_46 = -736527909 +  620060216 * (1.5)
+LifeExp_15 = exp(log(LifeExp_46)/4.6)
+LifeExp_15
+```
+
+
+```{r}
+LifeExp_46 = -736527909 +  620060216 * (2.5)
+LifeExp_25 = exp(log(LifeExp_46)/4.6)
+LifeExp_25
+```
+
+
+
+<strong> 4. Build the following multiple regression model and interpret the F Statistics, R^2, standard error, and p-values. How good is the model?
+LifeExp = b0+b1 x PropMd + b2 x TotExp +b3 x PropMD x TotExp</strong>
+
+<strong> Answer </strong>
+
+LifeExp = b0+b1 x PropMd + b2 x TotExp +b3 x PropMD x TotExp
+
+```{r}
+multiple_regression = lm(LifeExp~TotExp + PropMD + PropMD * TotExp)
+multiple_regression
+```
+
+
+```{r}
+summary(multiple_regression)
+```
+
+Life Expentancy MR = 62.8 + .000072 Total Expenditure + 1,497 PropMD + .006 * Total Expenditrure * PropMD
+
+Multiple R-squared: 0.3574, Adjusted R-squared: 0.3471 - with an adjusted R-squared value of only ~35%, this is not a good model. This means that the response variables in this model account for only ~35% of the variability of the model.
+
+F-statistic: 34.49 on 3 and 186 DF, p-value: < 2.2e-16 the F-statistic shows that the p-value is really low (close to zero), which means we can reject the null hypothesis and state with confidence that the response variables do contribute to the true value of the dependent variable.
+
+Residual standard error: 8.765 on 186 degrees of freedom - The residual SE is significant at 8.765. Which means that datapoints on the average are off by 8.765 from what the model would have predicted. By this measure, I would have to say the model is not a good fit to its corresponding data points.
+
+
+<strong> 5. Forecast LifeExp when PropMD=.03 and TotExp = 14. Does this forecast seem realistic? Why or why not?</strong>
+
+<strong> Answer </strong>
+
+```{r}
+Life_Expectancy = 62.8 + .000072 * 14 + 1497 * 0.03 + .006 * 14 * 0.03
+Life_Expectancy
+```
+
+The above forecast is not realistic. It summarises that if we increse the proportion of doctors in the population and drastically reduce spending, we can dramatically increase life expectancy from ~80s (high life expectancy countries) to 107. Since proportion of Doctors is not independent of Total Expenditure in healthcare. Huge amount of money is spent to train good doctors and good doctors also expect to be well compensated. Thus, it is not realistic to have a drastic increase in doctors in a population and at the same time have a drastic decrease in healthcare spending. The Total Expenditure came to be as 14, which is too low a number for Total Expenditure even for countries that have a very expensive and inefficient health care systems. The US, for example, spends more for healthcare per capita than any other country at around 7,000$ per capita. To drastically reduce this to 14$ per capita and expect to have a surge in medical doctors (x1,000 to x10,000) would not make sense.
+
