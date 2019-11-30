@@ -1,0 +1,43 @@
+---
+title: "HW15"
+author: "Priya Shaji"
+date: "11/30/2019"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+subtitle: Exercise 12.3,Page 711, Question 11
+---
+
+<strong> Question</strong>
+find fx, fy, fxx, fyy, fxy and fyx.
+
+$f(x,y)=x/y$
+
+<strong>Answer</strong>
+
+$f(x,y)=x/y$
+
+$f_x=1/y$
+
+$f_y=-x/y^2$
+
+$f_{xx} = 0$
+
+$f_{yy} = -2x/y^3$
+
+$f_{xy} = -1/y^2$
+
+$f_{yx} = -1/y^2$
+
+What were the most valuable elements you took away from this course?  
+
+This course helped me in learning statistics and math concepts of machine learning and data analysis.
+
+
+
+
+
+
+
+
