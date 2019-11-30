@@ -1,0 +1,90 @@
+---
+title: "PShaji_Assignment14"
+author: "Priya Shaji"
+date: "11/28/2019"
+output:
+  html_document:
+    df_print: paged
+---
+$\int 4e^{-7x} dx$ 
+
+#### This week, we’ll work out some Taylor Series expansions of popular functions.
+
+$f(x) = 1/(1-x)$
+
+$f(x) = e^x$
+
+$f(x) = ln(1+x)$
+
+#### For each function, only consider its valid ranges as indicated in the notes when you are computing the Taylor Series expansion. Please submit your assignment as a R-Markdown document.
+
+<strong> Answer </strong>
+
+<strong>1) $f(x) = 1/(1-x)$</strong>
+
+$f(a) = 1/1-a, f(0)=1$
+
+$f'(a) = 1/(1-a)^2,f'(0)=1$
+
+$f''(a)=2/(1-a)^3,f''(0)=2$
+
+$f'''(a)=6/(1-a)^3,f'''(0)=6$
+
+$f''''(a)=24/(1-a)^5,f''''(0)=24$
+
+Plug in the relevant expressions into formula for Taylor Series expansion:
+
+$f(a)+f'(a)(x-a)+f''(x-a)/2!+f'''(x-a)/3!+f''''(x-a)/4!...$
+
+$1+1x+2x^2/2!+6x^3/3!+24x^4/4!+...$
+
+$1+x+x^2+x^3+x^4+x^5...$
+
+$\sum_{n=0}^{∞}x^n$
+
+
+<strong>2) $f(x) = e^x$</strong>
+
+$f(a) = e^a, f(0)=1$
+
+$f'(a)=e^a, f'(0)=1$
+
+$f''(a)=e^a, f''(0)=1$
+
+$f'''(a)=e^a, f'''(0)=1$
+
+$f''''(a)=e^a, f''''(0)=1$
+
+Plug in the relevant expressions into formula for Taylor Series expansion:
+
+$f(a)+f′(a)(x−a)+f′′(x−a)/2!+f′′′(x−a)/3!+f''''(x−a)/4!+...$
+
+$=1+x^2/2+x^3/3+x^4/4+...$
+
+$=\sum_{n=0}^{∞}x^n/n!$
+
+
+<strong>3) $f(x) = ln(1+x)$</strong>
+
+$f(a)=ln(1+a), =f(0)=0$
+
+$f′(a)=1/1+a, =f′(0)=1$
+
+$f′′(a)=−1/(1+a)^2, =f′′(0)=−1$
+
+$f′′′(a)=2/(1+a)^3, =f′′′(0)=2$
+
+$f''''(a)=−6/(1+a)^4, =f''''(0)=−6$
+
+Plug in the relevant expressions into formula for Taylor Series expansion:
+
+$f(a)+f′(a)(x−a)+f′′(x−a)/2!+f′′′(x−a)/3!+f''''(x−a)/4!+...$
+
+$=x−x^2/2+x^3/3−x^4/4+...$
+
+$=\sum_{n=0}^{∞}(−1)^{n+1}x^n/n!$
+
+
+
+
+
