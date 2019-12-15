@@ -1,0 +1,639 @@
+---
+title: "PShaji_Assignment16"
+author: "Priya Shaji"
+date: "12/7/2019"
+output:
+  html_document:
+    df_print: paged
+---
+
+<strong>Problem 1</strong>
+
+<strong>Using R, generate a random variable X that has 10,000 random uniform numbers from 1 to N, where N can be any number of your choosing greater than or equal to 6.  Then generate a random variable Y that has 10,000 random normal numbers with a mean of μ=σ=(N+1)/2.</strong>
+
+
+<strong>Answer</strong>
+
+
+```{r}
+set.seed(293823)
+n <- 10000
+N <- 20
+X <- round(runif(n, 1, N))
+Y <- round(rnorm(n, mean = (N+1)/2, sd = (N+1)/2))
+x <- median(X)
+y <- as.numeric(quantile(Y, probs=c(.25)))
+```
+
+
+
+</strong>Probability.   Calculate as a minimum the below probabilities a through c.  Assume the small letter "x" is estimated as the median of the X variable, and the small letter "y" is estimated as the 1st quartile of the Y variable.  Interpret the meaning of all probabilities.</strong>
+
+5 points           a.   P(X>x | X>y)		b.  P(X>x, Y>y)		c.  P(X<x | X>y)	
+
+<strong>Answer a)</strong>
+
+a) P(X>x|X>y): Probability that X is greater than the median, given that X is greater than the 1st quartile of Y.
+
+```{r}
+P_X_gt_y <- length(X[X>y]) / n
+numerator <- length(X[X>max(x,y)]) / n
+numerator
+dnm <- P_X_gt_y
+dnm
+```
+
+
+$P(X>x|X>y)=P(P(X>x)|P(X>y))=P(P(X>x)⋂P(X>y))/P(X>y)=0.4/0.8≈0.5$
+ 
+<strong>Answer b)</strong>
+
+b) P(X>x,Y>y) Probability that X is greater than the median and that Y is greater than the 1st quartile.
+
+```{r}
+X_gt_x <- length(X[X>x])
+X_le_x <- n - X_gt_x
+Y_gt_y <- length(Y[Y>y])
+Y_le_y <- n - Y_gt_y
+P_X_gt_x <- X_gt_x / n
+P_X_gt_x 
+P_Y_gt_y <- Y_gt_y / n
+P_Y_gt_y
+```
+
+
+$P(X>x,Y>y)=P(X>x)⋅P(Y>y)=0.46*0.74≈0.375$
+
+<strong> Answer c) </strong>
+
+c) P(X<x|X>y) Probability that X is less than the median, given that X is greater than the 1st quartile of Y.
+
+```{r}
+numerator <- length(X[(X < x) & (X > y)]) / n
+numerator
+denominator <- P_X_gt_y
+denominator
+```
+
+
+$P(X<x|X>y)=P(P(X<x)|P(X>y))=P(P(X<x)⋂P(X>y))P(X>y)=0.337/0.83≈0.45$
+
+
+5 points.   Investigate whether P(X>x and Y>y)=P(X>x)P(Y>y) by building a table and evaluating the marginal and joint probabilities.
+
+<strong>Answer</strong>
+
+Cartesian product of data frame
+
+```{r}
+
+d <- data.frame(X = rep(X, n),Y = rep(Y, n))
+X_gt_x_and_Y_gt_y <- nrow(d[d$X>x & d$Y>y,]) / n
+X_gt_x_and_Y_le_y <- nrow(d[d$X>x & d$Y<=y,]) / n
+
+sum1<-X_gt_x_and_Y_gt_y+X_gt_x_and_Y_le_y 
+
+X_le_x_and_Y_gt_y <- nrow(d[d$X<=x & d$Y>y,]) / n
+X_le_x_and_Y_le_y <- nrow(d[d$X<=x & d$Y<=y,]) / n
+
+```
+
+<strong>Table of Counts</strong>
+
+```{r}
+sum2<- X_le_x_and_Y_gt_y+X_le_x_and_Y_le_y
+
+a <- c(X_gt_x_and_Y_gt_y, X_gt_x_and_Y_le_y, sum1)
+b <- c(X_le_x_and_Y_gt_y, X_le_x_and_Y_le_y, sum2)
+c<- c(X_gt_x_and_Y_gt_y+X_le_x_and_Y_gt_y,X_gt_x_and_Y_le_y+X_le_x_and_Y_le_y,sum1+sum2)
+
+tbl <- data.frame(rbind(a, b,c))
+
+names(tbl) <- c("Y>y", "Y<=y", "Total")
+row.names(tbl) <- c("X>x", "X<=x", "Total")
+
+
+tbl
+```
+
+
+<strong>Joint Probabilities</strong>
+
+```{r}
+sum1<-X_gt_x_and_Y_gt_y+X_gt_x_and_Y_le_y 
+sum2<- X_le_x_and_Y_gt_y+X_le_x_and_Y_le_y
+
+a <- c(X_gt_x_and_Y_gt_y/(sum1+sum2), X_gt_x_and_Y_le_y/(sum1+sum2))
+b <- c(X_le_x_and_Y_gt_y/(sum1+sum2), X_le_x_and_Y_le_y/(sum1+sum2))
+
+
+tbl_2 <- data.frame(rbind(a, b))
+
+names(tbl_2) <- c("Y>y", "Y<=y")
+row.names(tbl_2) <- c("X>x", "X<=x")
+
+
+tbl_2
+```
+
+
+<strong>Marginal Probabilities</strong>
+
+
+PX=(X>x	             X≤x	
+    4488/10000       5512/10000)
+PY=(Y>y	             Y≤y	
+    7247/10000       2753/10000)
+ 
+ 
+
+<strong>Conclusion</strong>
+
+P(X>x and Y>y)≈P(X>x)P(Y>y)
+
+P(X>x and Y>y) = 3249/10000 = 0.3249	
+
+P(X>x)P(Y>y) = 4488/10000⋅7247/10000=0.325
+
+As we see here: P(X>x and Y>y)=P(X>x)P(Y>y) is true.
+
+5 points.  Check to see if independence holds by using Fisher’s Exact Test and the Chi Square Test.  What is the difference between the two? Which is most appropriate?
+
+<strong>Fisher’s Exact Test</strong>
+
+If we start with the hypothesis that X and Y are independent, then, based on the above, we would expect the value for P(X>x,Y>y) to be 0.325. Our actual value is 0.3249. If the probability of obtaining a value higher than 0.3249 (i.e. deviating from the expected value) is small, then we would reject the hypothesis. Otherwise, hypothesis holds. To find such probability, we can use phyper function, in order to find the upper tail for the Hypergeometric Distribution, required for the Fisher’s Test.
+
+```{r}
+ph_x <- X_gt_x_and_Y_gt_y
+ph_m <- X_gt_x_and_Y_gt_y + X_le_x_and_Y_gt_y
+ph_n <- n - ph_m
+ph_k <- X_gt_x_and_Y_gt_y + X_gt_x_and_Y_le_y
+phpr <- phyper(ph_x, ph_m, ph_n, ph_k, lower.tail = FALSE)
+phpr
+```
+
+
+The above probability value, 0.55, is large and therefore, based on this test, the
+hypothesis cannot be rejected and therefore, the variables X and Y are independent.
+
+<strong>Chi-Squared Test</strong>
+
+The “chi-squared”, $x^2$ value for the above observations can be computed as follows:
+
+$x^2=\sum_{i=1}^{4}(Oi−Ei)^2/Ei$,where Oi - observed value and Ei - expected value
+Based on the Table of Counts above, we have,
+
+
+```{r}
+O1 <- X_gt_x_and_Y_gt_y
+O2 <- X_gt_x_and_Y_le_y
+O3 <- X_le_x_and_Y_gt_y
+O4 <- X_le_x_and_Y_le_y
+
+E1 <- round(X_gt_x * Y_gt_y / n)
+E2 <- round(X_gt_x * Y_le_y / n)
+E3 <- round(X_le_x * Y_gt_y / n)
+E4 <- round(X_le_x * Y_le_y / n)
+```
+
+Row 1, Col 1 O1 = 3484   E1 = 4660×7483/10000 = 3487
+
+Row 1, Col 2 O2 = 1176   E2 = 4660×2517/10000 = 1173 
+
+Row 2, Col 1 O3 = 3999   E3 = 5340×7483/10000 = 3996 
+
+Row 2, Col 2 O4 = 1341   E4 = 5340×2517/10000 = 1344
+ 
+
+Thus, $x^2$ is calculated as follows:
+
+```{r}
+chi_sq <- round(
+(O1 - E1)^2/E1 +
+(O2 - E2)^2/E2 +
+(O3 - E3)^2/E3 +
+(O4 - E4)^2/E4 ,
+4)
+```
+
+
+
+$x^2=(3484−3487)^2/3487+(1176−1173)^2/1173+(3999−3996)^2/3996+(1341−1344)^2/1344≈0.0192$
+
+Degrees of freedom, df, is computed as follows:
+
+$df=(R−1)×(C−1)=(2−1)(2−1)=1$
+
+
+where R is the number of rows in the table and C is the number of columns.
+
+Finding the p-value for the chi-squared distribution, will indicate whether or not we should reject our hypothesis. If p-value is small (less than 0.05
+), then we reject our hypothesis that variables X and Y are independent. To compute the p-value, pchisq function can be used as follows:
+
+```{r}
+p_chi_sq <- pchisq(chi_sq, df=1, lower.tail = FALSE)
+p_chi_sq
+```
+
+The p-value=0.89, is large and therefore, based on this test, the hypothesis cannot be rejected and therefore, the variables X and Y are independent.
+
+Both, Fisher’s Exact Test and Chi-Squared Test proved equally effective in testing the hypothesis in this case.
+
+
+<strong>Problem 2</strong>
+
+You are to register for Kaggle.com (free) and compete in the House Prices:
+Advanced Regression Techniques competition.  https://www.kaggle.com/c/house-prices-advanced-regression-techniques .  I want you to do the following.
+
+5 points.  Descriptive and Inferential Statistics. Provide univariate descriptive statistics and appropriate plots for the training data set.  Provide a scatterplot matrix for at least two of the independent variables and the dependent variable. Derive a correlation matrix for any three quantitative variables in the dataset.  Test the hypotheses that the correlations between each pairwise set of variables is 0 and provide an 80% confidence interval.  Discuss the meaning of your analysis.  Would you be worried about familywise error? Why or why not?
+
+
+<strong>Answer</strong>
+
+GrLivArea: Above grade (ground) living area square feet
+YearBuilt: Original construction date
+BedroomAbvGr: Bedrooms above grade (does NOT include basement bedrooms)
+
+
+```{r}
+df.train <- read.csv("https://raw.githubusercontent.com/PriyaShaji/Data605/master/week%2016/train.csv")
+
+summary(df.train$GrLivArea)
+```
+
+```{r}
+a_sd <- sd(df.train$GrLivArea)
+a_mn <- mean(df.train$GrLivArea)
+a_max <- max(df.train$GrLivArea)
+a_min <- min(df.train$GrLivArea)
+a_x <- 0:a_max
+a_y <- dnorm(x=a_x, mean=a_mn, sd=a_sd)
+hist(df.train$GrLivArea, probability = T)
+lines(x=a_x, y=a_y, col='blue')
+```
+
+```{r}
+summary(df.train$SalePrice)
+```
+
+
+```{r}
+a_sd <- sd(df.train$SalePrice)
+a_mn <- mean(df.train$SalePrice)
+a_max <- max(df.train$SalePrice)
+a_min <- min(df.train$SalePrice)
+a_x <- 0:a_max
+a_y <- dnorm(x=a_x, mean=a_mn, sd=a_sd)
+hist(df.train$SalePrice, probability = T)
+lines(x=a_x, y=a_y, col='blue')
+```
+
+Scatter Plot with Regression Line
+
+```{r}
+
+plot(SalePrice~GrLivArea, data = df.train)
+a_lm <- lm(SalePrice~GrLivArea, data = df.train)
+abline(a_lm, col = 'red')
+```
+
+
+Residual Analysis
+
+```{r}
+
+plot(fitted(a_lm), resid(a_lm), main = "Residuals")
+abline(h = 0, lty = 3)
+```
+
+
+```{r}
+qqnorm(a_lm$residuals, main = "Q-Q plot")
+qqline(a_lm$residuals, col = 'red')
+```
+
+
+The summaries and plots above compare GrLivArea variable with the SalePrice variable. Both variables are nearly normally distributed. The scatter and the residual analysis plots indicate a nearly straight and significant linear correlation.
+
+The Scatterplot Matrix below shows 3 independent variables (GrLivArea, BedroomAbvGr, YearBuilt) and the dependent variable (SalePrice).
+
+Using "Pairs" function below
+
+```{r}
+pairs(~SalePrice+GrLivArea+BedroomAbvGr+YearBuilt, data = df.train, gap = 0.5)
+```
+
+
+Below is the Correlation Matrix for the same set of variables.
+
+
+```{r}
+m_a <- cor(df.train[,c("SalePrice", "GrLivArea", "BedroomAbvGr", "YearBuilt")])
+m_a
+```
+
+
+Performing Pairwise correlation Testing indicated that correlation between each pairwise set of variables is not 0. (using the 80% confidence interval)
+
+
+```{r}
+cor.test(~GrLivArea+YearBuilt, data = df.train, conf.level = 0.8)
+```
+
+
+```{r}
+cor.test(~BedroomAbvGr+YearBuilt, data = df.train, conf.level = 0.8)
+```
+
+
+```{r}
+cor.test(~BedroomAbvGr+GrLivArea, data = df.train, conf.level = 0.8)
+```
+
+
+Despite the above hypothesis rejections, I would be worried about the familywise error, given that there are a lot of observations and the likelihood of the error is almost guaranteed.
+
+5 points. Linear Algebra and Correlation.  Invert your correlation matrix from above. (This is known as the precision matrix and contains variance inflation factors on the diagonal.) Multiply the correlation matrix by the precision matrix, and then multiply the precision matrix by the correlation matrix. Conduct LU decomposition on the matrix.  
+
+
+<strong>Answer</strong>
+
+```{r}
+m_b <- solve(m_a)
+m_b
+```
+
+
+```{r}
+m_a %*% m_b
+```
+
+```{r}
+m_b %*% m_a
+```
+
+
+To conduct LU decomposition on the matrix, I have written the lu_decomp function below
+
+```{r}
+lu_decomp <- function(m) {
+  n <- ncol(m)
+  U <- m[,]
+  L <- matrix(nrow = n, ncol = n)
+  L[1, 1] <- 1
+  L[1, 2:n] <- 0
+  
+  for (j in seq(1, n - 1)) {
+    for (i in  seq(j + 1, n)) {
+      f <- U[i, j] / U[j, j]
+      L[i, j] <- f
+      L[i, j + 1] <- 1
+      if (j + 1 < n) {
+        L[i, (j + 2):n] <- 0
+      }
+      for (k in seq(j, n)) {
+        U[i, k] <- U[i, k] - f * U[j, k]
+      }
+    }
+  }
+  
+  result = list(L, U)
+  names(result) <- c("L", "U")
+  
+  return(result)
+}
+```
+
+
+LU Decomposition
+
+```{r}
+
+m_lu <- lu_decomp(m_b)
+m_lu
+```
+
+Validating the decomposition by multiplying both halves of the matrix to get the original one.
+
+```{r}
+
+message("Validating the decomposition, by getting the original matrix")
+```
+
+
+```{r}
+m_lu$L %*% m_lu$U
+```
+
+
+5 points.  Calculus-Based Probability & Statistics.  Many times, it makes sense to fit a closed form distribution to data.  Select a variable in the Kaggle.com training dataset that is skewed to the right, shift it so that the minimum value is absolutely above zero if necessary.  Then load the MASS package and run fitdistr to fit an exponential probability density function.  (See  https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/fitdistr.html ).  Find the optimal value of λ for this distribution, and then take 1000 samples from this exponential distribution using this value (e.g., rexp(1000, λ)).  Plot a histogram and compare it with a histogram of your original variable.   Using the exponential pdf, find the 5th and 95th percentiles using the cumulative distribution function (CDF).   Also generate a 95% confidence interval from the empirical data, assuming normality.  Finally, provide the empirical 5th percentile and 95th percentile of the data.  Discuss.
+
+
+<strong>Answer</strong>
+
+```{r}
+library(MASS)
+
+hs_liv <- df.train$GrLivArea
+fd_rate <- fitdistr(hs_liv, "exponential")
+fd_rate
+```
+
+
+```{r}
+fd_liv <- rexp(1000, rate = fd_rate$estimate)
+
+par(mfrow = c(1, 2))
+hist(hs_liv, main = "Histogram of GrLivArea")
+hist(fd_liv, main = "Histogram of fitted distribution")
+```
+
+
+I selected GrLivArea variable which appears to be somewhat right-skewed. Fitting an “exponential” distribution, resulted in an optimal value of $λ=7×10^{−4}$
+
+Find the 5th and 95th percentiles
+
+```{r}
+
+qexp(c(0.05, 0.95), rate = fd_rate$estimate)
+```
+
+Generate a 95% confidence interval from the empirical data, assuming normality.
+
+```{r}
+
+a_qn <- qnorm(c(0.05, 0.95), mean = mean(hs_liv), sd = sd(hs_liv))
+a_qn
+```
+
+Provide the empirical 5th and 95th percentiles of the data
+
+```{r}
+
+quantile(ecdf(hs_liv), c(0.05, 0.95))
+```
+
+```{r}
+a_x <- seq(1, max(hs_liv), length.out = length(hs_liv))
+a_y <- dnorm(x = a_x, mean = mean(hs_liv), sd = sd(hs_liv))
+hist(hs_liv, probability = T)
+lines(x = a_x, y = a_y, col = 'blue')
+abline(v = a_qn, col = 'red')
+```
+
+
+Even though, the data for the GrLivArea variable appeares to be right-skewed, the interval numbers and the plots above show that it is better described by a normal distribution rather than an exponential one.
+
+
+
+10 points.  Modeling.  Build some type of multiple regression  model and submit your model to the competition board.  Provide your complete model summary and results with analysis.  Report your Kaggle.com user name and score.
+
+
+<strong>Answer</strong>
+
+```{r}
+trn <- df.train[,(names(df.train) %in% c("MSSubClass", "MSZoning", "LotFrontage", "LotArea", "LotShape", "LandContour", "LotConfig", "LandSlope", "Neighborhood", "Condition1", "Condition2", "BldgType", "HouseStyle", "OverallQual", "OverallCond", "Exterior1st", "Exterior2nd", "ExterQual", "ExterCond", "Foundation", "HeatingQC", "CentralAir", "GrLivArea", "TotRmsAbvGrd", "GarageArea"))]
+
+# Impute missing data
+mean_LotFrontage <- as.integer(summary(trn$LotFrontage)["Mean"])
+trn$LotFrontage <- replace(trn$LotFrontage, is.na(trn$LotFrontage), mean_LotFrontage)
+
+# Derive/Calculate additional features
+trn$AgeSold <- df.train$YrSold - df.train$YearBuilt + 1
+trn$AgeRemod <- df.train$YrSold - df.train$YearRemodAdd + 1
+
+# Rescale numeric data
+# Use Standardization: Subtract the mean and divide by variance
+#   This way the features are centered around zero and have variance one
+standardScaler <- function(x) {
+  m <- mean(x)
+  s <- sd(x)
+  return ((x - m) / s)
+}
+trn$GrLivArea <- standardScaler(trn$GrLivArea)
+trn$GarageArea <- standardScaler(trn$GarageArea)
+trn$AgeSold <- standardScaler(trn$AgeSold)
+trn$AgeRemod <- standardScaler(trn$AgeRemod)
+```
+
+
+
+```{r}
+trn$SalePrice <- df.train$SalePrice
+
+hs.lm <- lm(SalePrice~MSSubClass +  MSZoning   +  LotFrontage + LotArea   +  LotShape   +  LandContour + LotConfig  +  LandSlope  +  Neighborhood+ Condition1 +  Condition2 +  BldgType    +
++ HouseStyle +  OverallQual+  OverallCond + Exterior1st+  Exterior2nd+  ExterQual   +
++ ExterCond  +  Foundation +  HeatingQC   + CentralAir +  GrLivArea  +  TotRmsAbvGrd
++ GarageArea +  AgeSold    +  AgeRemod, data = trn)
+
+summary(hs.lm)
+```
+
+
+```{r}
+# Remove insignificant features and rebuil the model
+# Removed Features: LotConfig, Exterior1st, Exterior2nd, ExterCond, HeatingQC
+hs.lm <- lm(SalePrice~MSSubClass +  MSZoning   +  LotFrontage + LotArea   +  LotShape   +  LandContour +  LandSlope  +  Neighborhood+ Condition1 +  Condition2 +  BldgType    +
++ HouseStyle +  OverallQual+  OverallCond + ExterQual   +
++ Foundation +  CentralAir +  GrLivArea  +  TotRmsAbvGrd
++ GarageArea +  AgeSold    +  AgeRemod, data = trn)
+
+summary(hs.lm)
+```
+
+
+```{r}
+# Backward Elimination Process
+hs.lm <- update(hs.lm, .~. - TotRmsAbvGrd, data = trn)
+summary(hs.lm)
+```
+
+
+```{r}
+hs.lm <- update(hs.lm, .~. - CentralAir, data = trn)
+summary(hs.lm)
+```
+
+
+```{r}
+hs.lm <- update(hs.lm, .~. - Foundation, data = trn)
+summary(hs.lm)
+```
+
+
+```{r}
+hs.lm <- update(hs.lm, .~. - MSZoning, data = trn)
+summary(hs.lm)
+```
+
+
+```{r}
+hs.lm <- update(hs.lm, .~. - MSSubClass, data = trn)
+summary(hs.lm)
+```
+
+
+<strong>Residual Analysis</strong>
+
+```{r}
+plot(fitted(hs.lm), resid(hs.lm))
+abline(h = 0)
+```
+
+```{r}
+qqnorm(resid(hs.lm))
+qqline(resid(hs.lm))
+```
+
+
+<strong>Predicting Response</strong>
+
+```{r}
+df.test <- read.csv("https://raw.githubusercontent.com/PriyaShaji/Data605/master/week%2016/test.csv")
+
+tst <- df.test[,(names(df.test) %in% c("MSSubClass", "MSZoning", "LotFrontage", "LotArea", "LotShape", "LandContour", "LotConfig", "LandSlope", "Neighborhood", "Condition1", "Condition2", "BldgType", "HouseStyle", "OverallQual", "OverallCond", "Exterior1st", "Exterior2nd", "ExterQual", "ExterCond", "Foundation", "HeatingQC", "CentralAir", "GrLivArea", "TotRmsAbvGrd", "GarageArea"))]
+
+# Impute missing data
+mean_LotFrontage <- as.integer(summary(tst$LotFrontage)["Mean"])
+tst$LotFrontage <- replace(tst$LotFrontage, is.na(tst$LotFrontage), mean_LotFrontage)
+mean_GarageArea <- as.integer(summary(tst$GarageArea)["Mean"])
+tst$GarageArea <- replace(tst$GarageArea, is.na(tst$GarageArea), mean_GarageArea)
+
+# Derive/Calculate additional features
+tst$AgeSold <- df.test$YrSold - df.test$YearBuilt + 1
+tst$AgeRemod <- df.test$YrSold - df.test$YearRemodAdd + 1
+
+# Rescale numeric data
+# Use Standardization: Subtract the mean and divide by variance
+#   This way the features are centered around zero and have variance one
+tst$GrLivArea <- standardScaler(tst$GrLivArea)
+tst$GarageArea <- standardScaler(tst$GarageArea)
+tst$AgeSold <- standardScaler(tst$AgeSold)
+tst$AgeRemod <- standardScaler(tst$AgeRemod)
+
+# Predicting the House Prices
+hs.pd <- data.frame(
+  Id = seq(nrow(trn) + 1, length.out = nrow(tst)),
+  SalePrice = predict(hs.lm, newdata = tst)
+)
+head(hs.pd)
+```
+
+
+```{r}
+write.csv(hs.pd, file = "/Users/priyashaji/Documents/cunymsds/Fall19/data 605/week 16/prediction.csv", quote = FALSE, row.names = FALSE)
+
+summary(hs.pd$SalePrice)
+```
+
+
+```{r}
+par(mfrow = c(1, 2))
+hist(hs.pd$SalePrice, main = "Predicted Prices")
+hist(trn$SalePrice, main = "Training Prices")
+```
+
+Kaggle.com Username: shajipriya 
+                    https://www.kaggle.com/shajipriya
+                    
+Kaggle Score: 0.42341
